@@ -1,0 +1,39 @@
+"use client";
+
+import StickyHeader from "@/components/ui/StickyHeader";
+import Hero from "@/components/sections/Hero";
+import PainPoints from "@/components/sections/PainPoints";
+import ServiceShowcase from "@/components/sections/ServiceShowcase";
+import Benefits from "@/components/sections/Benefits";
+import Process from "@/components/sections/Process";
+import Pricing from "@/components/sections/Pricing";
+import Testimonials from "@/components/sections/Testimonials";
+import About from "@/components/sections/About";
+import CoverageArea from "@/components/sections/CoverageArea";
+import QuoteForm from "@/components/sections/QuoteForm";
+import FinalCTA from "@/components/sections/FinalCTA";
+import Footer from "@/components/sections/Footer";
+import StickyCTA from "@/components/sections/StickyCTA";
+
+export default function Home() {
+  return (
+    <>
+      <StickyHeader />
+      <main>
+        <Hero />
+        <PainPoints />
+        <ServiceShowcase />
+        <Benefits />
+        <Process />
+        <Pricing />
+        <Testimonials />
+        <About />
+        <CoverageArea />
+        <QuoteForm />
+        <FinalCTA />
+      </main>
+      <Footer />
+      <StickyCTA />
+    </>
+  );
+}
