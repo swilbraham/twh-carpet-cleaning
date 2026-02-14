@@ -4,31 +4,29 @@ import { motion } from "framer-motion";
 import { ArrowRight, Star, CheckCircle, Phone } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
-import CountdownTimer from "@/components/ui/CountdownTimer";
 import Logo from "@/components/ui/Logo";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background with carpet cleaning image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=1920&q=80')",
+          backgroundImage: "url('/carpet-cleaning.jpg')",
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-br from-brand-900/90 via-brand-800/85 to-brand-700/80" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 to-transparent" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
-        <div className="max-w-3xl">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 w-full">
+        <div className="text-center max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
+            className="mb-8 flex justify-center"
           >
             <Logo variant="light" size="lg" />
           </motion.div>
@@ -37,6 +35,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
+            className="flex justify-center"
           >
             <Badge variant="warning" className="mb-6">
               <Star className="w-3.5 h-3.5 mr-1 fill-amber-500 text-amber-500" />
@@ -59,7 +58,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg sm:text-xl text-white/80 mb-8 max-w-2xl"
+            className="text-lg sm:text-xl text-white/80 mb-8 max-w-2xl mx-auto"
           >
             Professional carpet, upholstery, and hard floor cleaning serving
             Chester, Ellesmere Port, Wirral and surrounding areas. Whether
@@ -71,7 +70,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 mb-6"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-6"
           >
             <Button href="#quote" size="lg">
               Get Your Free Quote
@@ -87,7 +86,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="mb-6"
+            className="mb-8"
           >
             <a
               href="tel:07334231504"
@@ -99,24 +98,10 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mb-8"
-          >
-            <CountdownTimer
-              hours={4}
-              minutes={30}
-              seconds={0}
-              label="Book today and save 15% —"
-            />
-          </motion.div>
-
-          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-wrap gap-x-6 gap-y-2"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2"
           >
             {[
               "No hidden fees",

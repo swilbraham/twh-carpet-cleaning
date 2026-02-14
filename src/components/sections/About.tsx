@@ -69,7 +69,7 @@ export default function About() {
               <div className="rounded-2xl overflow-hidden shadow-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://images.unsplash.com/photo-1527515545081-5db817172677?auto=format&fit=crop&w=600&q=80"
+                  src="https://images.pexels.com/photos/4107112/pexels-photo-4107112.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Professional carpet cleaning in action"
                   className="w-full h-56 object-cover"
                   loading="lazy"

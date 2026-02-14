@@ -8,21 +8,21 @@ const services = [
     description:
       "Deep hot water extraction removes embedded dirt, stains, and allergens from every fibre.",
     image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=600&q=80",
+      "https://images.pexels.com/photos/4107120/pexels-photo-4107120.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     title: "Upholstery Cleaning",
     description:
       "Sofas, armchairs, and fabric furniture restored to look and smell like new.",
     image:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+      "https://images.pexels.com/photos/4099354/pexels-photo-4099354.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     title: "Hard Floor Cleaning",
     description:
       "Tile, vinyl, laminate, and stone floors professionally cleaned, stripped, and sealed.",
     image:
-      "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=600&q=80",
+      "https://images.pexels.com/photos/4108715/pexels-photo-4108715.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
 ];
 

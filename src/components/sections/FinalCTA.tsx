@@ -3,7 +3,6 @@
 import { ArrowRight, Phone, Clock, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
-import CountdownTimer from "@/components/ui/CountdownTimer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function FinalCTA() {
@@ -27,20 +26,11 @@ export default function FinalCTA() {
                   Ready for Carpets That Look{" "}
                   <span className="text-accent-400">Brand New?</span>
                 </h2>
-                <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8">
+                <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-10">
                   Join hundreds of happy customers who&apos;ve transformed their
                   homes and businesses. Get your free, no-obligation quote in
                   minutes.
                 </p>
-
-                <div className="flex justify-center mb-8">
-                  <CountdownTimer
-                    hours={2}
-                    minutes={15}
-                    seconds={0}
-                    label="15% discount ends in:"
-                  />
-                </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
                   <Button href="tel:01513572295" variant="secondary" size="lg">
