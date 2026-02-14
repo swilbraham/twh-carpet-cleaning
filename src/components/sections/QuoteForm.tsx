@@ -7,6 +7,8 @@ import GuaranteeBadge from "@/components/ui/GuaranteeBadge";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
+const FORMSUBMIT_URL = "https://formsubmit.co/ajax/simonwilbraham@sky.com";
+
 export default function QuoteForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -34,13 +36,24 @@ export default function QuoteForm() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/quote", {
+      const res = await fetch(FORMSUBMIT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          postcode: formData.postcode,
+          "Service Type": formData.serviceType,
+          "Number of Rooms": formData.rooms,
+          message: formData.message,
+          _subject: `New Quote Request from ${formData.name} — TWH Carpet Cleaning`,
+          _template: "table",
+        }),
       });
-
-      const data = await res.json();
 
       if (res.ok) {
         setStatus("success");
@@ -55,7 +68,7 @@ export default function QuoteForm() {
         });
       } else {
         setStatus("error");
-        setErrorMessage(data.error || "Something went wrong. Please try again.");
+        setErrorMessage("Something went wrong. Please try again or call us instead.");
       }
     } catch {
       setStatus("error");
@@ -134,7 +147,7 @@ export default function QuoteForm() {
                   </p>
                   <button
                     onClick={() => setStatus("idle")}
-                    className="text-brand-500 font-semibold hover:underline"
+                    className="text-brand-500 font-semibold hover:underline cursor-pointer"
                   >
                     Submit another enquiry
                   </button>
