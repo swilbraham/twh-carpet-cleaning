@@ -1,20 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { X, Check, ArrowRight } from "lucide-react";
+import { Sparkles, Heart, Home, ShieldCheck, ArrowRight } from "lucide-react";
 
-const problems = [
-  "Stubborn stains that won't budge with shop-bought products",
-  "Hidden allergens, dust mites, and bacteria affecting your health",
-  "Carpets looking tired, worn, and ageing your home",
-  "Bad smells trapped deep in the fibres",
-];
-
-const solutions = [
-  "98% of dirt, stains and allergens removed completely",
-  "Eco-friendly, non-toxic products safe for kids and pets",
-  "Carpets look and smell brand new again",
-  "Fast drying in 2-4 hours — minimal disruption",
+const benefits = [
+  {
+    icon: Sparkles,
+    title: "Looks & Feels Brand New",
+    description:
+      "Professional deep cleaning restores the original colour, texture, and softness of your carpets and upholstery.",
+  },
+  {
+    icon: Heart,
+    title: "Healthier for Your Family",
+    description:
+      "Removes 98% of allergens, dust mites, and bacteria — creating a cleaner, fresher environment for everyone.",
+  },
+  {
+    icon: Home,
+    title: "A Home You'll Love Coming Back To",
+    description:
+      "Fresh carpets and spotless upholstery transform every room, giving a great impression to family and guests alike.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Extends the Life of Your Carpets",
+    description:
+      "Regular professional cleaning protects your investment, keeping carpets looking newer for years longer.",
+  },
 ];
 
 export default function ProblemSolution() {
@@ -27,66 +40,45 @@ export default function ProblemSolution() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-            Why DIY Cleaning{" "}
-            <span className="text-red-500">Doesn&apos;t Work</span>
+          <span className="text-brand-500 font-semibold text-sm uppercase tracking-wider">
+            The Difference Is Clear
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3">
+            A Brighter, Fresher{" "}
+            <span className="text-brand-500">Home</span>
           </h2>
           <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-            Regular vacuuming only cleans the surface. Professional deep
-            cleaning reaches where home machines can&apos;t.
+            Professional carpet and upholstery cleaning doesn&apos;t just
+            remove stains — it transforms your living space into somewhere
+            you love to be.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Problems */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-6 sm:p-8 border border-red-100 shadow-sm"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                <X className="w-5 h-5 text-red-500" />
+        <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {benefits.map((benefit, idx) => (
+            <motion.div
+              key={benefit.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <benefit.icon className="w-5 h-5 text-brand-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-900">
-                Without Professional Cleaning
-              </h3>
-            </div>
-            <ul className="space-y-4">
-              {problems.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Solutions */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-6 sm:p-8 border border-green-100 shadow-sm"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                <Check className="w-5 h-5 text-green-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900">
-                With TWH Carpet Cleaning
-              </h3>
-            </div>
-            <ul className="space-y-4">
-              {solutions.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
 
         <motion.div
