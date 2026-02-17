@@ -65,15 +65,26 @@ export default function About() {
 
           <AnimatedSection direction="right">
             <div className="space-y-6">
-              {/* Stock image */}
-              <div className="rounded-2xl overflow-hidden shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.pexels.com/photos/4107112/pexels-photo-4107112.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="Professional carpet cleaning in action"
-                  className="w-full h-56 object-cover"
-                  loading="lazy"
-                />
+              {/* Real photos */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-2xl overflow-hidden shadow-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/tom1.jpg"
+                    alt="Tom from TWH Carpet Cleaning at work"
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/tom2.jpg"
+                    alt="TWH Carpet Cleaning commercial office cleaning"
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {stats.map((stat, idx) => (

@@ -9,6 +9,7 @@ import TestimonialStrip from "@/components/landing/TestimonialStrip";
 import ElfsightReviews from "@/components/ui/ElfsightReviews";
 import CoverageStrip from "@/components/landing/CoverageStrip";
 import LandingCTA from "@/components/landing/LandingCTA";
+import NCCABadge from "@/components/ui/NCCABadge";
 import LandingFooter from "@/components/landing/LandingFooter";
 
 export default function LandingPage() {
@@ -24,6 +25,7 @@ export default function LandingPage() {
         <ElfsightReviews />
         <CoverageStrip />
         <LandingCTA />
+        <NCCABadge />
       </main>
       <LandingFooter />
     </div>

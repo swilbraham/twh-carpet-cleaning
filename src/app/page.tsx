@@ -13,6 +13,7 @@ import About from "@/components/sections/About";
 import CoverageArea from "@/components/sections/CoverageArea";
 import QuoteForm from "@/components/sections/QuoteForm";
 import FinalCTA from "@/components/sections/FinalCTA";
+import NCCABadge from "@/components/ui/NCCABadge";
 import Footer from "@/components/sections/Footer";
 import StickyCTA from "@/components/sections/StickyCTA";
 
@@ -33,6 +34,7 @@ export default function Home() {
         <CoverageArea />
         <QuoteForm />
         <FinalCTA />
+        <NCCABadge />
       </main>
       <Footer />
       <StickyCTA />
