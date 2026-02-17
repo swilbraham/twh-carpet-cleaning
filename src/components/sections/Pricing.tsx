@@ -8,8 +8,8 @@ import Badge from "@/components/ui/Badge";
 const services = [
   {
     title: "Carpet Cleaning",
-    from: "25",
-    unit: "per room",
+    from: "69",
+    unit: "",
     popular: false,
     features: [
       "Hot water extraction deep clean",
@@ -20,20 +20,20 @@ const services = [
     ],
   },
   {
-    title: "Full Home Package",
-    from: "149",
-    unit: "up to 4 rooms",
+    title: "Living Room, Stairs & Landing",
+    from: "99",
+    unit: "",
     popular: true,
     features: [
-      "Everything in Carpet Cleaning",
-      "Hall & stairs included",
-      "Upholstery spot treatment",
-      "Priority booking",
-      "15% off repeat bookings",
+      "Hot water extraction deep clean",
+      "Living room, stairs & landing",
+      "Stain treatment included",
+      "Deodorising & sanitising",
+      "Fast drying (2-4 hours)",
     ],
   },
   {
-    title: "Commercial Cleaning",
+    title: "Commercial Carpet Cleaning",
     from: "Custom",
     unit: "tailored quote",
     popular: false,
