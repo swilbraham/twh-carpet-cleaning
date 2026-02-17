@@ -21,9 +21,9 @@ export default function LandingFooter() {
               <Smartphone className="w-3.5 h-3.5" />
               07334 231 504
             </a>
-            <a href="mailto:simonwilbraham@sky.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <a href="mailto:Twhcarpetcleaning@outlook.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail className="w-3.5 h-3.5" />
-              simonwilbraham@sky.com
+              Twhcarpetcleaning@outlook.com
             </a>
             <span className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5" />

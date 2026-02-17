@@ -11,7 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-const FORMSUBMIT_URL = "https://formsubmit.co/ajax/simonwilbraham@sky.com";
+const FORMSUBMIT_URL = "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 

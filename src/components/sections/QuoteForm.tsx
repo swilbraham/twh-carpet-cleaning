@@ -7,7 +7,7 @@ import GuaranteeBadge from "@/components/ui/GuaranteeBadge";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-const FORMSUBMIT_URL = "https://formsubmit.co/ajax/simonwilbraham@sky.com";
+const FORMSUBMIT_URL = "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
 
 export default function QuoteForm() {
   const [status, setStatus] = useState<FormStatus>("idle");

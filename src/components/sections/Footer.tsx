@@ -47,11 +47,11 @@ export default function Footer() {
                 07334 231 504
               </a>
               <a
-                href="mailto:simonwilbraham@sky.com"
+                href="mailto:Twhcarpetcleaning@outlook.com"
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
               >
                 <Mail className="w-4 h-4" />
-                simonwilbraham@sky.com
+                Twhcarpetcleaning@outlook.com
               </a>
               <div className="flex items-start gap-2 text-gray-400 text-sm">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
