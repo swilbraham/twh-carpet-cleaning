@@ -8,7 +8,7 @@ import Benefits from "@/components/sections/Benefits";
 import Process from "@/components/sections/Process";
 import Pricing from "@/components/sections/Pricing";
 import Testimonials from "@/components/sections/Testimonials";
-import GoogleReviews from "@/components/ui/GoogleReviews";
+import ElfsightReviews from "@/components/ui/ElfsightReviews";
 import About from "@/components/sections/About";
 import CoverageArea from "@/components/sections/CoverageArea";
 import QuoteForm from "@/components/sections/QuoteForm";
@@ -28,7 +28,7 @@ export default function Home() {
         <Process />
         <Pricing />
         <Testimonials />
-        <GoogleReviews variant="full" />
+        <ElfsightReviews />
         <About />
         <CoverageArea />
         <QuoteForm />

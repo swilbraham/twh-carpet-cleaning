@@ -6,7 +6,7 @@ import ProblemSolution from "@/components/landing/ProblemSolution";
 import ServicesStrip from "@/components/landing/ServicesStrip";
 import HowItWorks from "@/components/landing/HowItWorks";
 import TestimonialStrip from "@/components/landing/TestimonialStrip";
-import GoogleReviews from "@/components/ui/GoogleReviews";
+import ElfsightReviews from "@/components/ui/ElfsightReviews";
 import CoverageStrip from "@/components/landing/CoverageStrip";
 import LandingCTA from "@/components/landing/LandingCTA";
 import LandingFooter from "@/components/landing/LandingFooter";
@@ -21,7 +21,7 @@ export default function LandingPage() {
         <ServicesStrip />
         <HowItWorks />
         <TestimonialStrip />
-        <GoogleReviews variant="compact" />
+        <ElfsightReviews />
         <CoverageStrip />
         <LandingCTA />
       </main>
