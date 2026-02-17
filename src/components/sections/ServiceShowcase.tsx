@@ -7,22 +7,19 @@ const services = [
     title: "Carpet Cleaning",
     description:
       "Deep hot water extraction removes embedded dirt, stains, and allergens from every fibre.",
-    image:
-      "https://images.pexels.com/photos/4107120/pexels-photo-4107120.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/carpets1.png",
   },
   {
     title: "Upholstery Cleaning",
     description:
       "Sofas, armchairs, and fabric furniture restored to look and smell like new.",
-    image:
-      "https://images.pexels.com/photos/4099354/pexels-photo-4099354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/upholstery1.png",
   },
   {
     title: "Hard Floor Cleaning",
     description:
       "Tile, vinyl, laminate, and stone floors professionally cleaned, stripped, and sealed.",
-    image:
-      "https://images.pexels.com/photos/4108715/pexels-photo-4108715.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/hardfloor.png",
   },
 ];
 

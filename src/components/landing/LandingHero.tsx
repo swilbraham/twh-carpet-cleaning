@@ -60,7 +60,7 @@ export default function LandingHero() {
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/carpet-cleaning.jpg')" }}
+        style={{ backgroundImage: "url('/tom2.jpg')" }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/90 to-brand-800/80" />
 
