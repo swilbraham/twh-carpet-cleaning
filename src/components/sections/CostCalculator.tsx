@@ -22,8 +22,8 @@ const roomTypes = [
   { id: "hallway", label: "Hallway" },
   { id: "stairs", label: "Stairs & Landing" },
   { id: "kitchen", label: "Kitchen" },
-  { id: "bathroom", label: "Bathroom" },
   { id: "conservatory", label: "Conservatory" },
+  { id: "other", label: "Other" },
 ];
 
 function calculateTotal(totalRooms: number): number {
