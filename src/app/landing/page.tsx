@@ -4,6 +4,7 @@ import LandingHero from "@/components/landing/LandingHero";
 import TrustBar from "@/components/landing/TrustBar";
 import ProblemSolution from "@/components/landing/ProblemSolution";
 import ServicesStrip from "@/components/landing/ServicesStrip";
+import CostCalculator from "@/components/sections/CostCalculator";
 import HowItWorks from "@/components/landing/HowItWorks";
 import TestimonialStrip from "@/components/landing/TestimonialStrip";
 import ElfsightReviews from "@/components/ui/ElfsightReviews";
@@ -20,6 +21,7 @@ export default function LandingPage() {
         <TrustBar />
         <ProblemSolution />
         <ServicesStrip />
+        <CostCalculator />
         <HowItWorks />
         <TestimonialStrip />
         <ElfsightReviews />
