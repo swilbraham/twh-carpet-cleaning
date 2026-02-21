@@ -1,8 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Minus, Calculator, ArrowRight } from "lucide-react";
+import {
+  Plus,
+  Minus,
+  Calculator,
+  ArrowRight,
+  Send,
+  Loader2,
+  CheckCircle,
+} from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+
+const FORMSUBMIT_URL =
+  "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
 
 const roomTypes = [
   { id: "living", label: "Living Room" },
@@ -23,25 +34,21 @@ function calculateTotal(totalRooms: number): number {
   return total;
 }
 
-function getPriceBreakdown(totalRooms: number): string[] {
-  const breakdown: string[] = [];
-  if (totalRooms >= 1) breakdown.push("1st room: £69");
-  if (totalRooms >= 2) breakdown.push("2nd room: £30");
-  if (totalRooms >= 3) {
-    const extra = totalRooms - 2;
-    breakdown.push(
-      `${extra} additional room${extra > 1 ? "s" : ""}: £${extra * 20}`
-    );
-  }
-  return breakdown;
-}
+type FormStatus = "idle" | "booking" | "submitting" | "success" | "error";
 
 export default function CostCalculator() {
   const [rooms, setRooms] = useState<Record<string, number>>({});
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    postcode: "",
+    message: "",
+  });
 
   const totalRooms = Object.values(rooms).reduce((sum, qty) => sum + qty, 0);
   const total = calculateTotal(totalRooms);
-  const breakdown = getPriceBreakdown(totalRooms);
 
   const updateRoom = (id: string, delta: number) => {
     setRooms((prev) => {
@@ -53,6 +60,56 @@ export default function CostCalculator() {
       }
       return { ...prev, [id]: next };
     });
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  // Build a summary of selected rooms
+  const getRoomSummary = (): string => {
+    return roomTypes
+      .filter((r) => (rooms[r.id] || 0) > 0)
+      .map((r) => {
+        const qty = rooms[r.id];
+        return qty > 1 ? `${r.label} x${qty}` : r.label;
+      })
+      .join(", ");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+    try {
+      const res = await fetch(FORMSUBMIT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          rooms_selected: getRoomSummary(),
+          total_rooms: totalRooms,
+          estimated_price: `£${total}`,
+          _subject: `Calculator Booking — ${formData.name} — £${total}`,
+          _template: "table",
+        }),
+      });
+      setFormStatus(res.ok ? "success" : "error");
+      if (res.ok)
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          postcode: "",
+          message: "",
+        });
+    } catch {
+      setFormStatus("error");
+    }
   };
 
   return (
@@ -73,17 +130,6 @@ export default function CostCalculator() {
 
         <AnimatedSection>
           <div className="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
-            {/* Pricing info bar */}
-            <div className="bg-brand-500 text-white px-6 py-4 text-center">
-              <p className="text-sm font-medium">
-                1st room <span className="font-bold">&pound;69</span>
-                <span className="mx-2 text-white/50">|</span>
-                2nd room <span className="font-bold">&pound;30</span>
-                <span className="mx-2 text-white/50">|</span>
-                Additional rooms <span className="font-bold">&pound;20 each</span>
-              </p>
-            </div>
-
             {/* Room selectors */}
             <div className="p-6 md:p-8">
               <div className="grid sm:grid-cols-2 gap-3">
@@ -136,22 +182,10 @@ export default function CostCalculator() {
                 })}
               </div>
 
-              {/* Total & breakdown */}
+              {/* Total & booking */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 {totalRooms > 0 ? (
                   <div className="text-center">
-                    {/* Breakdown */}
-                    <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-4">
-                      {breakdown.map((line) => (
-                        <span
-                          key={line}
-                          className="text-sm text-gray-500"
-                        >
-                          {line}
-                        </span>
-                      ))}
-                    </div>
-
                     {/* Total */}
                     <div className="mb-6">
                       <p className="text-sm text-gray-500 mb-1">
@@ -165,18 +199,129 @@ export default function CostCalculator() {
                       </p>
                     </div>
 
-                    <a
-                      href="#quote"
-                      className="inline-flex items-center gap-2 bg-brand-500 text-white font-semibold rounded-lg px-8 py-4 text-lg hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/25 hover:-translate-y-0.5"
-                    >
-                      Book Now
-                      <ArrowRight className="w-5 h-5" />
-                    </a>
+                    {/* Booking form or button */}
+                    {formStatus === "success" ? (
+                      <div className="py-6">
+                        <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <CheckCircle className="w-7 h-7 text-green-600" />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">
+                          Booking Request Sent!
+                        </h3>
+                        <p className="text-gray-600 text-sm">
+                          We&apos;ll get back to you within 2 hours to confirm.
+                        </p>
+                      </div>
+                    ) : formStatus === "booking" ||
+                      formStatus === "submitting" ||
+                      formStatus === "error" ? (
+                      <form
+                        onSubmit={handleSubmit}
+                        className="max-w-md mx-auto space-y-3 text-left"
+                      >
+                        <p className="text-sm font-semibold text-gray-700 text-center mb-2">
+                          Complete your details to book
+                        </p>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          <input
+                            type="text"
+                            name="name"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            placeholder="Full Name *"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                          />
+                          <input
+                            type="email"
+                            name="email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Email *"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                          />
+                        </div>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          <input
+                            type="tel"
+                            name="phone"
+                            required
+                            value={formData.phone}
+                            onChange={handleChange}
+                            placeholder="Phone Number *"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                          />
+                          <input
+                            type="text"
+                            name="postcode"
+                            value={formData.postcode}
+                            onChange={handleChange}
+                            placeholder="Postcode"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                          />
+                        </div>
+                        <textarea
+                          name="message"
+                          rows={2}
+                          value={formData.message}
+                          onChange={handleChange}
+                          placeholder="Any details? (stains, access, preferred date...)"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm resize-none"
+                        />
 
-                    <p className="text-xs text-gray-400 mt-4">
-                      This is an estimate. Final price confirmed after
-                      assessment. No hidden fees.
-                    </p>
+                        {/* Summary shown in form */}
+                        <div className="bg-brand-50 border border-brand-200 rounded-lg p-3 text-sm text-brand-700">
+                          <span className="font-semibold">Rooms:</span>{" "}
+                          {getRoomSummary()} —{" "}
+                          <span className="font-bold">&pound;{total}</span>{" "}
+                          estimated
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={formStatus === "submitting"}
+                          className="w-full bg-brand-500 text-white font-bold py-4 rounded-lg hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/25 hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-lg cursor-pointer"
+                        >
+                          {formStatus === "submitting" ? (
+                            <>
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                              Sending...
+                            </>
+                          ) : (
+                            <>
+                              <Send className="w-5 h-5" />
+                              Submit Booking
+                            </>
+                          )}
+                        </button>
+
+                        {formStatus === "error" && (
+                          <p className="text-red-600 text-sm text-center">
+                            Something went wrong. Please try again or call us.
+                          </p>
+                        )}
+
+                        <p className="text-xs text-gray-400 text-center">
+                          No spam. No obligation. Your details are safe with us.
+                        </p>
+                      </form>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setFormStatus("booking")}
+                          className="inline-flex items-center gap-2 bg-brand-500 text-white font-semibold rounded-lg px-8 py-4 text-lg hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/25 hover:-translate-y-0.5 cursor-pointer"
+                        >
+                          Book Now
+                          <ArrowRight className="w-5 h-5" />
+                        </button>
+                        <p className="text-xs text-gray-400 mt-4">
+                          This is an estimate. Final price confirmed after
+                          assessment. No hidden fees.
+                        </p>
+                      </>
+                    )}
                   </div>
                 ) : (
                   <div className="text-center py-4">
