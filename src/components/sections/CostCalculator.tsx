@@ -266,13 +266,22 @@ export default function CostCalculator() {
                           />
                         </div>
                         <div className="grid sm:grid-cols-2 gap-3">
-                          <input
-                            type="date"
-                            name="preferredDate"
-                            value={formData.preferredDate}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
-                          />
+                          <div className="relative">
+                            <input
+                              type="date"
+                              name="preferredDate"
+                              value={formData.preferredDate}
+                              onChange={handleChange}
+                              className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm ${
+                                !formData.preferredDate ? "text-transparent" : ""
+                              } focus:text-gray-900`}
+                            />
+                            {!formData.preferredDate && (
+                              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">
+                                Preferred Date
+                              </span>
+                            )}
+                          </div>
                           <select
                             name="preferredTime"
                             value={formData.preferredTime}
