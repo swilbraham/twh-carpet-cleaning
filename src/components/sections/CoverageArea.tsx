@@ -14,6 +14,21 @@ const areas = [
   "Parts of North Wales",
 ];
 
+const serviceAreas = [
+  {
+    service: "Carpet Cleaning",
+    text: "Professional carpet cleaning in Chester, Ellesmere Port, Wirral, Neston, Frodsham, Helsby and Runcorn. Our hot water extraction method removes deep-set dirt, stains and allergens from your carpets.",
+  },
+  {
+    service: "Upholstery Cleaning",
+    text: "Expert sofa and upholstery cleaning across Chester, Ellesmere Port, Wirral, Neston and the CH postcode area. We restore sofas, armchairs and fabric furniture to look and smell brand new.",
+  },
+  {
+    service: "Hard Floor Cleaning",
+    text: "Tile, vinyl, laminate and stone floor cleaning in Chester, Ellesmere Port, Wirral, Frodsham, Helsby and Runcorn. Professional cleaning, stripping and sealing for homes and businesses.",
+  },
+];
+
 export default function CoverageArea() {
   return (
     <section id="coverage" className="py-20 md:py-28 bg-white">
@@ -30,7 +45,7 @@ export default function CoverageArea() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="TWH Carpet Cleaning Location"
+                title="TWH Carpet Cleaning - Carpet, Upholstery and Hard Floor Cleaning in Chester, Ellesmere Port and Wirral"
                 className="w-full"
               />
             </div>
@@ -48,14 +63,15 @@ export default function CoverageArea() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">
-              Serving the <span className="text-brand-500">CH Postcode</span>{" "}
-              Area &amp; Beyond
+              Carpet, Upholstery &amp; Hard Floor Cleaning Across the{" "}
+              <span className="text-brand-500">CH Postcode</span> Area
             </h2>
 
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              We cover anywhere with a CH postcode, including Chester, Ellesmere
-              Port, Wirral and parts of North Wales, as well as some parts of
-              West Cheshire like Frodsham, Helsby and Runcorn.
+              We provide professional carpet cleaning, upholstery cleaning and
+              hard floor cleaning anywhere with a CH postcode, including Chester,
+              Ellesmere Port, Wirral, Neston and parts of North Wales, as well
+              as West Cheshire areas like Frodsham, Helsby and Runcorn.
             </p>
 
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-6">
@@ -84,6 +100,22 @@ export default function CoverageArea() {
               </p>
             </div>
           </AnimatedSection>
+        </div>
+
+        {/* SEO-rich service area descriptions */}
+        <div className="mt-16 grid md:grid-cols-3 gap-6">
+          {serviceAreas.map((item) => (
+            <AnimatedSection key={item.service}>
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 h-full">
+                <h3 className="font-bold text-gray-900 mb-2 text-lg">
+                  {item.service}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {item.text}
+                </p>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
