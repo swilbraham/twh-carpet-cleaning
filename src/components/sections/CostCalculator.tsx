@@ -44,6 +44,8 @@ export default function CostCalculator() {
     email: "",
     phone: "",
     postcode: "",
+    preferredDate: "",
+    preferredTime: "",
     message: "",
   });
 
@@ -63,7 +65,7 @@ export default function CostCalculator() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -105,6 +107,8 @@ export default function CostCalculator() {
           email: "",
           phone: "",
           postcode: "",
+          preferredDate: "",
+          preferredTime: "",
           message: "",
         });
     } catch {
@@ -261,12 +265,31 @@ export default function CostCalculator() {
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
                           />
                         </div>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          <input
+                            type="date"
+                            name="preferredDate"
+                            value={formData.preferredDate}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                          />
+                          <select
+                            name="preferredTime"
+                            value={formData.preferredTime}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm bg-white"
+                          >
+                            <option value="">Preferred Time</option>
+                            <option value="A.M.">A.M.</option>
+                            <option value="P.M.">P.M.</option>
+                          </select>
+                        </div>
                         <textarea
                           name="message"
                           rows={2}
                           value={formData.message}
                           onChange={handleChange}
-                          placeholder="Any details? (stains, access, preferred date...)"
+                          placeholder="Any details? (stains, access...)"
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm resize-none"
                         />
 
