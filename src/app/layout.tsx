@@ -100,6 +100,11 @@ export default function RootLayout({
       <body className="bg-white text-gray-900 antialiased">
         <StructuredData />
         {children}
+        <script
+          src="https://www.cleanerbot.co.uk/embed.js"
+          data-tenant-id="cmmp4ho9x0000jj041bqayftz"
+          async
+        />
       </body>
     </html>
   );
