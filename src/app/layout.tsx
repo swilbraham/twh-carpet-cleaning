@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import StructuredData from "@/components/ui/StructuredData";
 import CookieConsent from "@/components/ui/CookieConsent";
+import FloatingCallButton from "@/components/ui/FloatingCallButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -101,6 +102,7 @@ export default function RootLayout({
       <body className="bg-white text-gray-900 antialiased">
         <StructuredData />
         {children}
+        <FloatingCallButton />
         <CookieConsent />
       </body>
     </html>
