@@ -137,7 +137,7 @@ export default function OfferPage() {
                   surrounding CH postcode area.
                 </p>
 
-                {/* Price card + photo */}
+                {/* Price card + photos */}
                 <div className="grid sm:grid-cols-2 gap-4 mb-8 max-w-xl">
                   <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex flex-col justify-center">
                     <div className="flex items-baseline gap-2 mb-2 flex-wrap">
@@ -154,14 +154,36 @@ export default function OfferPage() {
                       hidden fees, no VAT surprises.
                     </p>
                   </div>
-                  <div className="relative aspect-[4/3] sm:aspect-auto rounded-2xl overflow-hidden shadow-lg ring-1 ring-white/20">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/carpets1.png"
-                      alt="Professional carpet cleaning in progress"
-                      className="absolute inset-0 w-full h-full object-cover"
-                      loading="lazy"
-                    />
+                  <div className="flex flex-col gap-2">
+                    <div className="relative aspect-[4/3] lg:aspect-[16/10] rounded-2xl overflow-hidden shadow-lg ring-1 ring-white/20">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/carpets1.png"
+                        alt="Professional carpet cleaning in progress"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="hidden lg:grid grid-cols-2 gap-2">
+                      <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg ring-1 ring-white/20">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src="/tom1.jpg"
+                          alt="Tom — NCCA-accredited carpet cleaning technician"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg ring-1 ring-white/20">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src="/upholstery1.png"
+                          alt="Carpet cleaning results"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
