@@ -1,5 +1,8 @@
+"use client";
+
 import { Phone, Mail, MapPin, Smartphone } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import { clearConsent } from "@/lib/cookieConsent";
 
 const footerLinks = {
   Services: [
@@ -115,19 +118,26 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} TWH Carpet Cleaning. All rights
               reserved.
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-6 justify-center">
               <a
-                href="#"
+                href="/privacy"
                 className="text-gray-500 hover:text-gray-300 transition-colors text-sm"
               >
                 Privacy Policy
               </a>
               <a
-                href="#"
+                href="/cookies"
                 className="text-gray-500 hover:text-gray-300 transition-colors text-sm"
               >
-                Terms of Service
+                Cookie Policy
               </a>
+              <button
+                type="button"
+                onClick={() => clearConsent()}
+                className="text-gray-500 hover:text-gray-300 transition-colors text-sm cursor-pointer"
+              >
+                Cookie settings
+              </button>
             </div>
           </div>
         </div>

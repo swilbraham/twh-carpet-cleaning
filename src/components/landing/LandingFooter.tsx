@@ -1,4 +1,7 @@
+"use client";
+
 import { Phone, Mail, MapPin, Smartphone } from "lucide-react";
+import { clearConsent } from "@/lib/cookieConsent";
 
 export default function LandingFooter() {
   return (
@@ -32,10 +35,25 @@ export default function LandingFooter() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-6 pt-6 text-center">
+        <div className="border-t border-gray-800 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
           <p className="text-gray-500 text-xs">
             &copy; {new Date().getFullYear()} TWH Carpet Cleaning. All rights reserved.
           </p>
+          <div className="flex flex-wrap gap-5 justify-center text-xs">
+            <a href="/privacy" className="text-gray-500 hover:text-gray-300 transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/cookies" className="text-gray-500 hover:text-gray-300 transition-colors">
+              Cookie Policy
+            </a>
+            <button
+              type="button"
+              onClick={() => clearConsent()}
+              className="text-gray-500 hover:text-gray-300 transition-colors cursor-pointer"
+            >
+              Cookie settings
+            </button>
+          </div>
         </div>
       </div>
     </footer>
