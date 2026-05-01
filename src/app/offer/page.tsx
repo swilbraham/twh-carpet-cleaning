@@ -53,7 +53,7 @@ export default function OfferPage() {
         },
         body: JSON.stringify({
           ...formData,
-          _subject: `OFFER (3 Carpets £119) — ${formData.name}`,
+          _subject: `OFFER (3 Carpets from £119) — ${formData.name}`,
           _template: "table",
         }),
       });
@@ -120,43 +120,41 @@ export default function OfferPage() {
                 <div className="inline-flex items-center gap-2 bg-accent-500/20 border border-accent-400/40 rounded-full px-4 py-1.5 mb-5">
                   <Tag className="w-4 h-4 text-accent-400" />
                   <span className="text-accent-400 text-sm font-semibold uppercase tracking-wide">
-                    Limited Time Offer
+                    Carpet Cleaning Deal
                   </span>
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.05] mb-6">
-                  3 Carpets Professionally Cleaned for Only{" "}
+                  3 Carpets Professionally Cleaned from{" "}
                   <span className="text-accent-400">£119</span>
                 </h1>
 
                 <p className="text-lg text-white/80 mb-8 leading-relaxed max-w-lg">
-                  Bring three of your carpets back to life with our deep
-                  hot-water extraction clean — same eco-friendly process, same
-                  NCCA-accredited technicians, one unbeatable price. Available
-                  across Chester, Ellesmere Port, Wirral and the surrounding
-                  CH postcode area.
+                  Bring three of your carpets back to life with our
+                  truck-mounted hot-water extraction clean — same eco-friendly
+                  process, same NCCA-accredited technicians, one fixed price.
+                  Available across Chester, Ellesmere Port, Wirral and the
+                  surrounding CH postcode area.
                 </p>
 
                 {/* Price card */}
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-8 max-w-md">
                   <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-white/60 text-lg line-through">
-                      £150
-                    </span>
+                    <span className="text-white/70 text-sm">From</span>
                     <span className="text-5xl font-extrabold text-white">
                       £119
                     </span>
-                    <span className="text-white/70 text-sm">all-in</span>
+                    <span className="text-white/70 text-sm">for 3 carpets</span>
                   </div>
                   <p className="text-white/70 text-sm">
-                    Three carpets, one fixed price. No hidden fees, no VAT
-                    surprises.
+                    Our Essential Clean — three carpets, one fixed price. No
+                    hidden fees, no VAT surprises.
                   </p>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-3 mb-8">
                   {[
-                    "Deep hot-water extraction",
+                    "Truck-mounted hot-water extraction",
                     "Eco-friendly & pet-safe",
                     "Pre-treatment of high-traffic areas",
                     "Stain & spot treatment included",
@@ -232,7 +230,7 @@ export default function OfferPage() {
                 <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 relative">
                   {/* Offer ribbon */}
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg">
-                    Claim Your £119 Offer
+                    Book From £119
                   </div>
 
                   {status === "success" ? (
@@ -252,10 +250,10 @@ export default function OfferPage() {
                     <form onSubmit={handleSubmit} className="space-y-4 pt-2">
                       <div className="text-center mb-1">
                         <h2 className="text-xl font-bold text-gray-900">
-                          Book the £119 Offer
+                          Book Your 3-Carpet Clean
                         </h2>
                         <p className="text-sm text-gray-500 mt-1">
-                          3 carpets cleaned — fixed price, no obligation
+                          From £119 — no obligation, reply within 2 hours
                         </p>
                       </div>
 
@@ -344,7 +342,7 @@ export default function OfferPage() {
                         ) : (
                           <>
                             <Send className="w-5 h-5" />
-                            Claim My £119 Offer
+                            Book My Carpet Clean
                           </>
                         )}
                       </button>
@@ -373,7 +371,7 @@ export default function OfferPage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
                 What&apos;s Included in Your{" "}
-                <span className="text-brand-500">£119 Clean</span>
+                <span className="text-brand-500">3-Carpet Clean</span>
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                 A full professional clean for three carpets — exactly the same
@@ -397,9 +395,9 @@ export default function OfferPage() {
                 },
                 {
                   icon: CheckCircle,
-                  title: "Hot-water extraction",
+                  title: "Truck-mounted extraction",
                   body:
-                    "Powerful truck-quality extraction lifts out dirt, allergens and residue — leaving carpets fresh and dry in 2–4 hours.",
+                    "Our powerful truck-mounted system delivers higher heat and stronger suction than portable machines — lifting out dirt, allergens and residue and leaving carpets fresh and dry in 2–4 hours.",
                 },
               ].map(({ icon: Icon, title, body }) => (
                 <div
@@ -445,8 +443,8 @@ export default function OfferPage() {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">
-                Ready to claim your{" "}
-                <span className="text-accent-400">£119 offer?</span>
+                Ready to book your{" "}
+                <span className="text-accent-400">3-carpet clean?</span>
               </h2>
               <p className="text-lg text-white/75 mb-10 max-w-2xl mx-auto">
                 Call now or scroll up to book online — we&apos;ll respond within
