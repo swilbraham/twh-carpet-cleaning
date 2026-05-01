@@ -401,7 +401,7 @@ export default function OfferPage() {
         </section>
 
         {/* What's included */}
-        <section className="py-16 md:py-20 bg-white">
+        <section className="pt-16 md:pt-20 pb-0 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
