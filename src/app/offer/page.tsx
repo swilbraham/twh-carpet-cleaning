@@ -365,6 +365,32 @@ export default function OfferPage() {
           </div>
         </section>
 
+        {/* Photo strip */}
+        <section className="bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+              {[
+                { src: "/carpets1.png", alt: "Professional carpet cleaning in progress" },
+                { src: "/tom1.jpg", alt: "Tom — NCCA-accredited carpet cleaning technician" },
+                { src: "/upholstery1.png", alt: "Carpet and upholstery cleaning results" },
+              ].map((photo) => (
+                <div
+                  key={photo.src}
+                  className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* What's included */}
         <section className="py-16 md:py-20 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
