@@ -31,7 +31,11 @@ export default function ElfsightReviews() {
   }, [accepted]);
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section
+      className={`bg-white ${
+        accepted ? "py-12 md:py-20" : "py-8 md:py-12"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {accepted ? (
           <div
@@ -39,7 +43,7 @@ export default function ElfsightReviews() {
             data-elfsight-app-lazy
           />
         ) : (
-          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto">
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 md:p-10 text-center max-w-2xl mx-auto">
             <h3 className="text-xl font-bold text-gray-900 mb-2">
               Customer reviews
             </h3>
