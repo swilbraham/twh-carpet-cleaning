@@ -101,7 +101,7 @@ export default function LandingHero() {
                 ))}
               </div>
               <span className="text-white/80 text-sm font-medium">
-                4.9/5 from 500+ customers
+                4.9 from 500+ customers
               </span>
             </div>
 

@@ -12,7 +12,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 const stats = [
   { icon: Users, value: "500+", label: "Happy Customers" },
   { icon: Calendar, value: "10+", label: "Years Experience" },
-  { icon: Award, value: "4.9/5", label: "Average Rating" },
+  { icon: Award, value: "4.9", label: "Average Rating" },
   { icon: ShieldCheck, value: "100%", label: "Satisfaction Guarantee" },
 ];
 

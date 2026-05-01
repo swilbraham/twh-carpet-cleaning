@@ -235,7 +235,7 @@ export default function OfferPage() {
                     ))}
                   </div>
                   <span className="text-white/80 text-sm font-medium">
-                    4.9/5 from 500+ happy customers
+                    4.9 from 500+ happy customers
                   </span>
                 </div>
 
