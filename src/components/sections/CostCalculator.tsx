@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Plus,
   Minus,
@@ -71,6 +71,7 @@ export default function CostCalculator() {
   const [deodoriser, setDeodoriser] = useState(false);
   const [stainGuard, setStainGuard] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const successRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -80,6 +81,12 @@ export default function CostCalculator() {
     preferredTime: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (formStatus === "success" && successRef.current) {
+      successRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [formStatus]);
 
   /* ── Calculations ──────────────────────────── */
   const totalRooms = Object.values(rooms).reduce((s, q) => s + q, 0);
@@ -459,7 +466,7 @@ export default function CostCalculator() {
 
                     {/* Booking form or button */}
                     {formStatus === "success" ? (
-                      <div className="py-6">
+                      <div ref={successRef} className="py-6 scroll-mt-24">
                         <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                           <CheckCircle className="w-7 h-7 text-green-600" />
                         </div>

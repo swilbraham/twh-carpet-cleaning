@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Phone,
@@ -24,6 +24,7 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 
 export default function OfferPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
+  const successRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,6 +33,12 @@ export default function OfferPage() {
     rooms: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (status === "success" && successRef.current) {
+      successRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [status]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -269,7 +276,7 @@ export default function OfferPage() {
                   </div>
 
                   {status === "success" ? (
-                    <div className="text-center py-10">
+                    <div ref={successRef} className="text-center py-10 scroll-mt-24">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <CheckCircle className="w-8 h-8 text-green-600" />
                       </div>

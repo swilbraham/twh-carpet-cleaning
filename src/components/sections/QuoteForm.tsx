@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Send, CheckCircle, AlertCircle, Phone, Loader2 } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import GuaranteeBadge from "@/components/ui/GuaranteeBadge";
@@ -12,6 +12,7 @@ const FORMSUBMIT_URL = "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com
 export default function QuoteForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const successRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,6 +22,12 @@ export default function QuoteForm() {
     rooms: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (status === "success" && successRef.current) {
+      successRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [status]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -134,7 +141,7 @@ export default function QuoteForm() {
           <AnimatedSection direction="right">
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8">
               {status === "success" ? (
-                <div className="text-center py-12">
+                <div ref={successRef} className="text-center py-12 scroll-mt-24">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-8 h-8 text-green-600" />
                   </div>
