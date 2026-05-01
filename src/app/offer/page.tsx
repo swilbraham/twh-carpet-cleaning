@@ -137,19 +137,32 @@ export default function OfferPage() {
                   surrounding CH postcode area.
                 </p>
 
-                {/* Price card */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-8 max-w-md">
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-white/70 text-sm">From</span>
-                    <span className="text-5xl font-extrabold text-white">
-                      £119
-                    </span>
-                    <span className="text-white/70 text-sm">for 3 carpets</span>
+                {/* Price card + photo */}
+                <div className="grid sm:grid-cols-2 gap-4 mb-8 max-w-xl">
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex flex-col justify-center">
+                    <div className="flex items-baseline gap-2 mb-2 flex-wrap">
+                      <span className="text-white/70 text-sm">From</span>
+                      <span className="text-5xl font-extrabold text-white">
+                        £119
+                      </span>
+                      <span className="text-white/70 text-sm">
+                        for 3 carpets
+                      </span>
+                    </div>
+                    <p className="text-white/70 text-sm">
+                      Our Essential Clean — three carpets, one fixed price. No
+                      hidden fees, no VAT surprises.
+                    </p>
                   </div>
-                  <p className="text-white/70 text-sm">
-                    Our Essential Clean — three carpets, one fixed price. No
-                    hidden fees, no VAT surprises.
-                  </p>
+                  <div className="relative aspect-[4/3] sm:aspect-auto rounded-2xl overflow-hidden shadow-lg ring-1 ring-white/20">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/carpets1.png"
+                      alt="Professional carpet cleaning in progress"
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-3 mb-8">
@@ -361,32 +374,6 @@ export default function OfferPage() {
                   )}
                 </div>
               </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Photo strip */}
-        <section className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-            <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-              {[
-                { src: "/carpets1.png", alt: "Professional carpet cleaning in progress" },
-                { src: "/tom1.jpg", alt: "Tom — NCCA-accredited carpet cleaning technician" },
-                { src: "/upholstery1.png", alt: "Carpet and upholstery cleaning results" },
-              ].map((photo) => (
-                <div
-                  key={photo.src}
-                  className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
             </div>
           </div>
         </section>
