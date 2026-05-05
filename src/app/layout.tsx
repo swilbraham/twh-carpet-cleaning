@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import StructuredData from "@/components/ui/StructuredData";
 import CookieConsent from "@/components/ui/CookieConsent";
 import FloatingCallButton from "@/components/ui/FloatingCallButton";
@@ -104,6 +105,7 @@ export default function RootLayout({
         {children}
         <FloatingCallButton />
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
