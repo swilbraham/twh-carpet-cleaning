@@ -8,15 +8,25 @@ let cachedData: { reviews: unknown[]; rating: number; totalReviews: number } | n
 let cacheTime = 0;
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
 
+// Cache-Control: lets Vercel's CDN serve the response without re-invoking
+// the function for the next 60 minutes. Cuts function-invocation cost and
+// rate-limits abuse — the response is identical for everyone.
+const CDN_CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+};
+
 export async function GET() {
   // Return cached data if still valid
   if (cachedData && Date.now() - cacheTime < CACHE_DURATION) {
-    return NextResponse.json(cachedData);
+    return NextResponse.json(cachedData, { headers: CDN_CACHE_HEADERS });
   }
 
   // If no API key configured, return empty (component will show fallback)
   if (!API_KEY) {
-    return NextResponse.json({ reviews: [], rating: 0, totalReviews: 0 });
+    return NextResponse.json(
+      { reviews: [], rating: 0, totalReviews: 0 },
+      { headers: CDN_CACHE_HEADERS },
+    );
   }
 
   try {
@@ -36,10 +46,13 @@ export async function GET() {
       cachedData = result;
       cacheTime = Date.now();
 
-      return NextResponse.json(result);
+      return NextResponse.json(result, { headers: CDN_CACHE_HEADERS });
     }
 
-    return NextResponse.json({ reviews: [], rating: 0, totalReviews: 0 });
+    return NextResponse.json(
+      { reviews: [], rating: 0, totalReviews: 0 },
+      { headers: CDN_CACHE_HEADERS },
+    );
   } catch {
     return NextResponse.json(
       { reviews: [], rating: 0, totalReviews: 0 },

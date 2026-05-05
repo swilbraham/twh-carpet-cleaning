@@ -174,8 +174,13 @@ export default function CostCalculator() {
     return parts.join(", ");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Honeypot — silently drop bot submissions
+    const honey = (e.currentTarget.elements.namedItem("_honey") as HTMLInputElement | null)?.value;
+    if (honey) { setFormStatus("success"); return; }
+
     setFormStatus("submitting");
     try {
       const tierLabel = packages.find((p) => p.id === tier)?.label || tier;
@@ -484,6 +489,15 @@ export default function CostCalculator() {
                         onSubmit={handleSubmit}
                         className="max-w-md mx-auto space-y-3 text-left"
                       >
+                        {/* Honeypot — bots fill this; humans never see it */}
+                        <input
+                          type="text"
+                          name="_honey"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          aria-hidden="true"
+                          style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
+                        />
                         <p className="text-sm font-semibold text-gray-700 text-center mb-2">
                           Complete your details to book
                         </p>

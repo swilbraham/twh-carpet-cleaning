@@ -41,8 +41,13 @@ export default function LandingHero() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Honeypot — silently drop bot submissions
+    const honey = (e.currentTarget.elements.namedItem("_honey") as HTMLInputElement | null)?.value;
+    if (honey) { setStatus("success"); return; }
+
     setStatus("submitting");
     try {
       const res = await fetch(FORMSUBMIT_URL, {
@@ -191,6 +196,15 @@ export default function LandingHero() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Honeypot — bots fill this; humans never see it */}
+                  <input
+                    type="text"
+                    name="_honey"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
+                  />
                   <div className="text-center mb-1">
                     <h2 className="text-xl font-bold text-gray-900">
                       Get Your FREE Quote
