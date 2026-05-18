@@ -15,8 +15,8 @@ import {
 } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
-const FORMSUBMIT_URL =
-  "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const WEB3FORMS_KEY = "e8b4dd99-992e-4928-8e30-99af9daf2b32";
 
 /* ── Room types ─────────────────────────────────── */
 const roomTypes = [
@@ -184,7 +184,7 @@ export default function CostCalculator() {
     setFormStatus("submitting");
     try {
       const tierLabel = packages.find((p) => p.id === tier)?.label || tier;
-      const res = await fetch(FORMSUBMIT_URL, {
+      const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -196,8 +196,9 @@ export default function CostCalculator() {
           selections: getSummary(),
           add_ons: getAddOnsSummary() || "None",
           estimated_price: `£${total}`,
-          _subject: `${tierLabel} Booking — ${formData.name} — £${total}`,
-          _template: "table",
+          access_key: WEB3FORMS_KEY,
+          subject: `${tierLabel} Booking — ${formData.name} — £${total}`,
+          from_name: "TWH Carpet Cleaning Website",
         }),
       });
       setFormStatus(res.ok ? "success" : "error");

@@ -11,7 +11,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-const FORMSUBMIT_URL = "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const WEB3FORMS_KEY = "e8b4dd99-992e-4928-8e30-99af9daf2b32";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -50,13 +51,14 @@ export default function LandingHero() {
 
     setStatus("submitting");
     try {
-      const res = await fetch(FORMSUBMIT_URL, {
+      const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           ...formData,
-          _subject: `Landing Page Quote — ${formData.name}`,
-          _template: "table",
+          access_key: WEB3FORMS_KEY,
+          subject: `Landing Page Quote — ${formData.name}`,
+          from_name: "TWH Carpet Cleaning Website",
         }),
       });
       setStatus(res.ok ? "success" : "error");

@@ -105,7 +105,7 @@ These are required for Next.js's runtime hydration — removing them breaks the 
 ## 🟢 Info — no action needed
 
 - **Place ID `ChIJeZ8wfg_eekgRzTRdPvDNckY`** is in client-side code. This is fine — Place IDs are public Google data and exposing them is the *intended* design.
-- **PII flow via FormSubmit.co** — name, email, phone, postcode, postcode, optional message all go to a third-party form processor before reaching your inbox. This is disclosed in `src/app/privacy/page.tsx` and `src/app/cookies/page.tsx` ✓. UK GDPR-fine as long as the privacy policy stays accurate (it currently does).
+- **PII flow via Web3Forms** — name, email, phone, postcode, postcode, optional message all go to a third-party form processor before reaching your inbox. This is disclosed in `src/app/privacy/page.tsx` and `src/app/cookies/page.tsx` ✓. UK GDPR-fine as long as the privacy policy stays accurate (it currently does).
 - **Vercel hosting** — provider handles TLS renewal, DDoS protection, function isolation. No action.
 - **DNS** — `twhcarpetcleaning.co.uk` resolves to Vercel directly. Domain verification & TLS are managed in the Vercel dashboard, no manual cert renewal needed.
 - **No `Strict-Transport-Security` preload submission** — once the new HSTS header has been live for ~30 days, you can submit the domain to [hstspreload.org](https://hstspreload.org) so browsers ship with the rule baked-in. Optional, browser-level hardening.

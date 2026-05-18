@@ -18,7 +18,8 @@ import ElfsightReviews from "@/components/ui/ElfsightReviews";
 import NCCABadge from "@/components/ui/NCCABadge";
 import LandingFooter from "@/components/landing/LandingFooter";
 
-const FORMSUBMIT_URL = "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const WEB3FORMS_KEY = "e8b4dd99-992e-4928-8e30-99af9daf2b32";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -57,7 +58,7 @@ export default function OfferPage() {
 
     setStatus("submitting");
     try {
-      const res = await fetch(FORMSUBMIT_URL, {
+      const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,8 +66,9 @@ export default function OfferPage() {
         },
         body: JSON.stringify({
           ...formData,
-          _subject: `OFFER (3 Carpets from £119) — ${formData.name}`,
-          _template: "table",
+          access_key: WEB3FORMS_KEY,
+          subject: `OFFER (3 Carpets from £119) — ${formData.name}`,
+          from_name: "TWH Carpet Cleaning Website",
         }),
       });
       setStatus(res.ok ? "success" : "error");

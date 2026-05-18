@@ -73,7 +73,7 @@ export default function PrivacyPage() {
             Who sees it
           </h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            Form submissions are processed by FormSubmit (formsubmit.co), which
+            Form submissions are processed by Web3Forms (web3forms.com), which
             forwards them to our email. We do not sell or share your details
             with third parties for marketing.
           </p>

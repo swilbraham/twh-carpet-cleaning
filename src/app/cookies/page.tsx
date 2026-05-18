@@ -68,16 +68,16 @@ export default function CookiesPage() {
             Third-party services on form submission
           </h3>
           <p className="text-gray-700 leading-relaxed mb-4">
-            When you submit a quote form, your details are sent to FormSubmit
-            (formsubmit.co), which forwards them to our email. This only
+            When you submit a quote form, your details are sent to Web3Forms
+            (web3forms.com), which forwards them to our email. This only
             happens when you actively submit a form. See{" "}
             <a
-              href="https://formsubmit.co/privacy"
+              href="https://web3forms.com/privacy-policy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-500 hover:text-brand-600 underline"
             >
-              FormSubmit&apos;s privacy policy
+              Web3Forms&apos; privacy policy
             </a>
             .
           </p>

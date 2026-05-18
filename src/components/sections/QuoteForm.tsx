@@ -7,7 +7,8 @@ import GuaranteeBadge from "@/components/ui/GuaranteeBadge";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-const FORMSUBMIT_URL = "https://formsubmit.co/ajax/Twhcarpetcleaning@outlook.com";
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const WEB3FORMS_KEY = "e8b4dd99-992e-4928-8e30-99af9daf2b32";
 
 export default function QuoteForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -48,7 +49,7 @@ export default function QuoteForm() {
     setErrorMessage("");
 
     try {
-      const res = await fetch(FORMSUBMIT_URL, {
+      const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,8 +63,9 @@ export default function QuoteForm() {
           "Service Type": formData.serviceType,
           "Number of Rooms": formData.rooms,
           message: formData.message,
-          _subject: `New Quote Request from ${formData.name} — TWH Carpet Cleaning`,
-          _template: "table",
+          access_key: WEB3FORMS_KEY,
+          subject: `New Quote Request from ${formData.name} — TWH Carpet Cleaning`,
+          from_name: "TWH Carpet Cleaning Website",
         }),
       });
 
