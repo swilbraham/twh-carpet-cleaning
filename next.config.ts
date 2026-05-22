@@ -9,12 +9,12 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value:
       "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com; " +
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-      "font-src 'self' https://fonts.gstatic.com; " +
-      "img-src 'self' data: blob: https://www.google.com https://maps.gstatic.com https://*.googleusercontent.com; " +
-      "frame-src 'self' https://www.google.com; " +
-      "connect-src 'self' https://api.web3forms.com https://maps.googleapis.com https://vitals.vercel-insights.com; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://elfsightcdn.com https://static.elfsight.com; " +
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://elfsightcdn.com https://static.elfsight.com; " +
+      "font-src 'self' data: https://fonts.gstatic.com https://elfsightcdn.com https://static.elfsight.com; " +
+      "img-src 'self' data: blob: https://www.google.com https://maps.gstatic.com https://*.googleusercontent.com https://*.elfsight.com https://*.elfsightcdn.com https://static.elfsight.com; " +
+      "frame-src 'self' https://www.google.com https://*.elfsight.com https://*.elfsightcdn.com; " +
+      "connect-src 'self' https://api.web3forms.com https://maps.googleapis.com https://vitals.vercel-insights.com https://*.elfsight.com https://*.elfsightcdn.com https://static.elfsight.com; " +
       "frame-ancestors 'none';",
   },
   { key: "X-Frame-Options", value: "DENY" },
