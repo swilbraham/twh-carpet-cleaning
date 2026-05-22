@@ -9,8 +9,8 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value:
       "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://elfsightcdn.com https://static.elfsight.com; " +
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://elfsightcdn.com https://static.elfsight.com; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://elfsightcdn.com https://*.elfsightcdn.com https://*.elfsight.com; " +
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://elfsightcdn.com https://*.elfsightcdn.com https://*.elfsight.com; " +
       "font-src 'self' data: https://fonts.gstatic.com https://elfsightcdn.com https://static.elfsight.com; " +
       "img-src 'self' data: blob: https://www.google.com https://maps.gstatic.com https://*.googleusercontent.com https://*.elfsight.com https://*.elfsightcdn.com https://static.elfsight.com; " +
       "frame-src 'self' https://www.google.com https://*.elfsight.com https://*.elfsightcdn.com; " +
