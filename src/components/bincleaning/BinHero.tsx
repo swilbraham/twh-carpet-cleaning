@@ -16,17 +16,23 @@ const WEB3FORMS_KEY = "e8b4dd99-992e-4928-8e30-99af9daf2b32";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
+const plans = [
+  { value: "Black Bin — £5/month", label: "Black Bin", price: "£5", sub: "General waste" },
+  { value: "Red Bin — £5/month", label: "Red Bin", price: "£5", sub: "Recycling" },
+  { value: "Both Bins — £9/month", label: "Both Bins", price: "£9", sub: "Save £1", popular: true },
+  { value: "Healthy Home — £14/month", label: "Healthy Home", price: "£14", sub: "Black ×2 + Red" },
+];
+
 export default function BinHero() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const successRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
+    mobile: "",
     email: "",
-    phone: "",
+    address: "",
     postcode: "",
-    binType: "",
-    numberOfBins: "",
-    frequency: "",
+    plan: "",
     message: "",
   });
 
@@ -59,7 +65,7 @@ export default function BinHero() {
         body: JSON.stringify({
           ...formData,
           access_key: WEB3FORMS_KEY,
-          subject: `Bin Cleaning Quote — ${formData.name}`,
+          subject: `Bin Cleaning Sign-Up — ${formData.name} (${formData.plan || "no plan selected"})`,
           from_name: "TWH Bin Cleaning Website",
         }),
       });
@@ -67,12 +73,11 @@ export default function BinHero() {
       if (res.ok)
         setFormData({
           name: "",
+          mobile: "",
           email: "",
-          phone: "",
+          address: "",
           postcode: "",
-          binType: "",
-          numberOfBins: "",
-          frequency: "",
+          plan: "",
           message: "",
         });
     } catch {
@@ -138,9 +143,10 @@ export default function BinHero() {
             </h1>
 
             <p className="text-lg text-white/75 mb-8 leading-relaxed max-w-lg">
-              Serving Chester, Ellesmere Port, Wirral &amp; the CH postcode
-              area. Domestic &amp; commercial. Eco-friendly products. We collect,
-              jet-wash, sanitise and deodorise your bins — right at the kerbside.
+              From just <span className="text-white font-semibold">£5 a month</span>.
+              Serving Chester, Ellesmere Port, Wirral &amp; the CH postcode area.
+              We collect, jet-wash, sanitise and deodorise your bins — right at
+              the kerbside. Register online in under a minute.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
@@ -201,10 +207,11 @@ export default function BinHero() {
                     <CheckCircle className="w-8 h-8 text-green-600" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Bin Cleaning Request Sent!
+                    You&apos;re Signed Up!
                   </h3>
                   <p className="text-gray-600">
-                    We&apos;ll get back to you within 2 hours.
+                    Thanks for registering your bins. We&apos;ll be in touch
+                    within 2 hours to confirm your first clean.
                   </p>
                 </div>
               ) : (
@@ -220,42 +227,41 @@ export default function BinHero() {
                   />
                   <div className="text-center mb-1">
                     <h2 className="text-xl font-bold text-gray-900">
-                      Get Your FREE Bin Cleaning Quote
+                      Register Your Bins
                     </h2>
                     <p className="text-sm text-gray-500 mt-1">
-                      No obligation — we reply within 2 hours
+                      Sign up online — we reply within 2 hours
                     </p>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Full Name *"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Email *"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Full Name *"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                  />
+
+                  <input
+                    type="text"
+                    name="address"
+                    required
+                    value={formData.address}
+                    onChange={handleChange}
+                    placeholder="Address *"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                  />
 
                   <div className="grid sm:grid-cols-2 gap-3">
                     <input
                       type="tel"
-                      name="phone"
+                      name="mobile"
                       required
-                      value={formData.phone}
+                      value={formData.mobile}
                       onChange={handleChange}
-                      placeholder="Phone Number *"
+                      placeholder="Mobile Number *"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
                     />
                     <input
@@ -268,54 +274,72 @@ export default function BinHero() {
                     />
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <select
-                      name="binType"
-                      value={formData.binType}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm bg-white"
-                    >
-                      <option value="">Type of bins</option>
-                      <option value="General Waste (Black)">General Waste (Black)</option>
-                      <option value="Recycling">Recycling</option>
-                      <option value="Garden / Green">Garden / Green</option>
-                      <option value="Food Caddy">Food Caddy</option>
-                      <option value="Mixed Household">Mixed Household</option>
-                      <option value="Commercial / Trade">Commercial / Trade</option>
-                    </select>
-                    <select
-                      name="numberOfBins"
-                      value={formData.numberOfBins}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm bg-white"
-                    >
-                      <option value="">Number of bins</option>
-                      <option value="1 bin">1 bin</option>
-                      <option value="2 bins">2 bins</option>
-                      <option value="3 bins">3 bins</option>
-                      <option value="4+ bins">4+ bins</option>
-                    </select>
-                  </div>
-
-                  <select
-                    name="frequency"
-                    value={formData.frequency}
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm bg-white"
-                  >
-                    <option value="">How often? (optional)</option>
-                    <option value="One-off clean">One-off clean</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Fortnightly">Fortnightly</option>
-                    <option value="Every collection">Every collection</option>
-                  </select>
+                    placeholder="Email (optional)"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
+                  />
+
+                  {/* Plan picker */}
+                  <fieldset>
+                    <legend className="text-sm font-semibold text-gray-700 mb-2">
+                      Choose your plan *
+                    </legend>
+                    <div className="grid grid-cols-2 gap-2">
+                      {plans.map((plan) => {
+                        const selected = formData.plan === plan.value;
+                        return (
+                          <label
+                            key={plan.value}
+                            className={`relative cursor-pointer rounded-lg border-2 p-3 transition-all ${
+                              selected
+                                ? "border-brand-500 bg-brand-50"
+                                : "border-gray-200 hover:border-gray-300"
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="plan"
+                              required
+                              value={plan.value}
+                              checked={selected}
+                              onChange={handleChange}
+                              className="sr-only"
+                            />
+                            {plan.popular && (
+                              <span className="absolute -top-2 right-2 bg-accent-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                Popular
+                              </span>
+                            )}
+                            <div className="flex items-baseline justify-between">
+                              <span className="text-sm font-bold text-gray-900">
+                                {plan.label}
+                              </span>
+                              <span className="text-sm font-extrabold text-brand-600">
+                                {plan.price}
+                                <span className="text-[10px] font-medium text-gray-400">
+                                  /mo
+                                </span>
+                              </span>
+                            </div>
+                            <span className="block text-[11px] text-gray-500 mt-0.5">
+                              {plan.sub}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
 
                   <textarea
                     name="message"
-                    rows={3}
+                    rows={2}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Any details? (access, number of bins, special requests...)"
+                    placeholder="Anything else? (bin location, access, gate code...)"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm resize-none"
                   />
 
@@ -332,7 +356,7 @@ export default function BinHero() {
                     ) : (
                       <>
                         <Send className="w-5 h-5" />
-                        Get My Free Quote
+                        Register My Bins
                       </>
                     )}
                   </button>

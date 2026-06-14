@@ -16,7 +16,7 @@ const services = [
   {
     title: "Commercial & Trade Bins",
     description: "Pubs, restaurants, shops and offices — scheduled trade bin cleaning to keep your premises hygienic.",
-    image: "/bin-green.jpg",
+    image: "/bin-blue.jpg",
   },
 ];
 

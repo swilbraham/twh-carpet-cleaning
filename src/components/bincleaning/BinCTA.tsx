@@ -18,7 +18,7 @@ export default function BinCTA() {
           </h2>
           <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
             Join hundreds of happy customers across Chester, Wirral and
-            Ellesmere Port. Get your free bin cleaning quote today.
+            Ellesmere Port. Register your bins online from just £5 a month.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
@@ -40,7 +40,7 @@ export default function BinCTA() {
               href="#top"
               className="inline-flex items-center justify-center gap-2 bg-accent-500 text-white font-bold rounded-lg px-8 py-4 text-lg hover:bg-accent-600 transition-all shadow-lg shadow-accent-500/25 hover:-translate-y-0.5"
             >
-              Get a Quote Online
+              Register Your Bins
               <ArrowRight className="w-5 h-5" />
             </a>
           </div>
