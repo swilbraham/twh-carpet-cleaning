@@ -33,6 +33,7 @@ export default function BinHero() {
     address: "",
     postcode: "",
     plan: "",
+    collectionDate: "",
     message: "",
   });
 
@@ -78,6 +79,7 @@ export default function BinHero() {
           address: "",
           postcode: "",
           plan: "",
+          collectionDate: "",
           message: "",
         });
     } catch {
@@ -333,6 +335,26 @@ export default function BinHero() {
                       })}
                     </div>
                   </fieldset>
+
+                  <div>
+                    <label
+                      htmlFor="collectionDate"
+                      className="block text-sm font-semibold text-gray-700 mb-1.5"
+                    >
+                      Date of your next bin collection
+                    </label>
+                    <input
+                      id="collectionDate"
+                      type="date"
+                      name="collectionDate"
+                      value={formData.collectionDate}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm text-gray-700"
+                    />
+                    <p className="text-[11px] text-gray-400 mt-1">
+                      So we know when to clean your bins after they&apos;re emptied.
+                    </p>
+                  </div>
 
                   <textarea
                     name="message"
