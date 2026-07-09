@@ -1,5 +1,9 @@
+export type ServiceKey = "carpet" | "sofa";
+
 export interface Location {
   slug: string;
+  serviceKey: ServiceKey;
+  serviceShort: string;
   name: string;
   urlPath: string;
   postcode: string;
@@ -17,9 +21,11 @@ export interface Location {
   metaDescription: string;
 }
 
-export const locations: Location[] = [
+export const carpetLocations: Location[] = [
   {
     slug: "ellesmere-port",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Ellesmere Port",
     urlPath: "/carpet-cleaning-ellesmere-port",
     postcode: "CH65 / CH66",
@@ -63,6 +69,8 @@ export const locations: Location[] = [
   },
   {
     slug: "chester",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Chester",
     urlPath: "/carpet-cleaning-chester",
     postcode: "CH1 – CH4",
@@ -108,6 +116,8 @@ export const locations: Location[] = [
   },
   {
     slug: "wirral",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Wirral",
     urlPath: "/carpet-cleaning-wirral",
     postcode: "CH41 – CH49, CH60 – CH64",
@@ -153,6 +163,8 @@ export const locations: Location[] = [
   },
   {
     slug: "neston",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Neston",
     urlPath: "/carpet-cleaning-neston",
     postcode: "CH64",
@@ -185,6 +197,8 @@ export const locations: Location[] = [
   },
   {
     slug: "frodsham",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Frodsham",
     urlPath: "/carpet-cleaning-frodsham",
     postcode: "WA6",
@@ -224,6 +238,8 @@ export const locations: Location[] = [
   },
   {
     slug: "helsby",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Helsby",
     urlPath: "/carpet-cleaning-helsby",
     postcode: "WA6",
@@ -256,6 +272,8 @@ export const locations: Location[] = [
   },
   {
     slug: "runcorn",
+    serviceKey: "carpet",
+    serviceShort: "Carpet Cleaning",
     name: "Runcorn",
     urlPath: "/carpet-cleaning-runcorn",
     postcode: "WA7",
@@ -294,5 +312,305 @@ export const locations: Location[] = [
   },
 ];
 
+export const sofaLocations: Location[] = [
+  {
+    slug: "ellesmere-port",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Ellesmere Port",
+    urlPath: "/sofa-cleaning-ellesmere-port",
+    postcode: "CH65 / CH66",
+    county: "Cheshire West",
+    travelMinutes: 5,
+    heroTitle: "Sofa & Upholstery Cleaning in",
+    heroTitleAccent: "Ellesmere Port",
+    heroSubtitle:
+      "Professional sofa, upholstery and mattress cleaning right on your doorstep — TWH is based on Girton Road in Ellesmere Port. Fabric, wool, chenille and leather sofas restored to look and smell brand new.",
+    intro:
+      "TWH is Ellesmere Port's local sofa and upholstery cleaning specialist. From our base on Girton Road (CH65 5BE) we clean fabric sofas, corner suites, armchairs, dining chairs, mattresses and curtains across the whole town — Great Sutton, Little Sutton, Whitby, Overpool, Wolverham, Rivacre, Hooton and Little Neston. Being just around the corner means we can usually be with you the same week you call, and often within 48 hours.",
+    local:
+      "Family sofas take a battering — kids' snacks, pet paws, spills, sun-fade and every-day body oils build up in the fibres. Our professional hot water extraction lifts all of that out at fibre level rather than smearing it around, and every fabric is pre-tested and matched with a safe cleaning solution. NCCA-accredited technicians, eco-friendly products, safe for children and pets once dry.",
+    neighbours: ["Chester", "Wirral", "Neston", "Helsby"],
+    landmarks: [
+      "Cheshire Oaks",
+      "Whitby",
+      "Great Sutton",
+      "Little Sutton",
+      "Overpool",
+      "Hooton",
+    ],
+    faqs: [
+      {
+        q: "How much does sofa cleaning cost in Ellesmere Port?",
+        a: "As a guide, a two-seater is typically £45, a three-seater £65 and a corner suite from £95 — depending on fabric and condition. Combine with a carpet clean in the same visit for a discount. Call 0151 357 2295 for a firm quote.",
+      },
+      {
+        q: "Can you clean fabric and leather sofas?",
+        a: "Yes — we clean fabric, chenille, wool, cotton and leather. Every fabric is pre-tested in a hidden area and cleaned with a matched, safe solution. Leather is cleaned and re-conditioned rather than saturated.",
+      },
+      {
+        q: "How long does a sofa take to dry?",
+        a: "Fabric sofas are usually touch-dry in 3–6 hours and fully dry overnight. We can open windows and use air-movers to speed things up if needed.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Ellesmere Port | TWH — from £45",
+    metaDescription:
+      "Local sofa, upholstery and mattress cleaning in Ellesmere Port (CH65/CH66). Fabric, wool and leather. NCCA-accredited, eco-friendly, from £45. Call 0151 357 2295.",
+  },
+  {
+    slug: "chester",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Chester",
+    urlPath: "/sofa-cleaning-chester",
+    postcode: "CH1 – CH4",
+    county: "Cheshire West",
+    travelMinutes: 15,
+    heroTitle: "Sofa & Upholstery Cleaning in",
+    heroTitleAccent: "Chester",
+    heroSubtitle:
+      "Professional sofa, corner suite, armchair and mattress cleaning across Chester — Hoole, Handbridge, Upton, Vicars Cross, Blacon and the city centre. NCCA-accredited, family-run, same-week appointments.",
+    intro:
+      "TWH is a local, family-run sofa and upholstery cleaner serving Chester and the CH1 to CH4 postcode areas. Every week we travel out to Hoole, Handbridge, Upton, Boughton, Vicars Cross, Newton, Blacon, Saughall and the city centre — cleaning fabric sofas, corner suites, armchairs, dining chairs, mattresses and curtains in homes, holiday lets and offices.",
+    local:
+      "Chester's homes range from Victorian terraces in Handbridge and Hoole with fitted three-piece suites, to modern estates in Newton and Upton with big fabric corner sofas. Whatever the fabric, our hot water extraction system cleans right through to the base cushions, lifts out stains and odours and leaves your suite looking and smelling brand new. Every job is completed by an NCCA-accredited technician using eco-friendly, child- and pet-safe products.",
+    neighbours: ["Ellesmere Port", "Frodsham", "Helsby", "Neston"],
+    landmarks: [
+      "Hoole",
+      "Handbridge",
+      "Upton",
+      "Vicars Cross",
+      "Boughton",
+      "Blacon",
+      "Saughall",
+      "Chester city centre",
+    ],
+    faqs: [
+      {
+        q: "Do you clean sofas in period homes in Chester?",
+        a: "Yes — Chester has a lot of older properties with delicate soft furnishings. We pre-test every fabric and match a safe cleaning solution, and as NCCA members we're trained on natural fibres, wool and antique upholstery.",
+      },
+      {
+        q: "How much is sofa cleaning in Chester?",
+        a: "Two-seater from £45, three-seater around £65, corner suite from £95, dining chairs from £8 each. Combine with a carpet clean in the same visit and we'll usually knock some money off.",
+      },
+      {
+        q: "Do you clean mattresses and curtains too?",
+        a: "Yes — mattresses (single, double, king, super-king), curtains in-situ, and dining chairs. Perfect after illness or as part of a spring clean.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Chester | TWH — NCCA-Accredited, from £45",
+    metaDescription:
+      "Professional sofa, corner suite, armchair, mattress and curtain cleaning in Chester (CH1–CH4). NCCA-accredited, family-run, eco-friendly, from £45. Call 0151 357 2295.",
+  },
+  {
+    slug: "wirral",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Wirral",
+    urlPath: "/sofa-cleaning-wirral",
+    postcode: "CH41 – CH49, CH60 – CH64",
+    county: "Merseyside",
+    travelMinutes: 15,
+    heroTitle: "Sofa & Upholstery Cleaning on the",
+    heroTitleAccent: "Wirral",
+    heroSubtitle:
+      "TWH is your local Wirral sofa and upholstery cleaner — from Heswall and Neston to Bromborough, Bebington, Birkenhead, West Kirby and Hoylake. Fabric, wool, chenille and leather cleaned in-situ.",
+    intro:
+      "TWH cleans sofas, corner suites, armchairs, dining chairs, mattresses and curtains across the entire Wirral peninsula. We travel out from Ellesmere Port every week to Heswall, Neston, Parkgate, Bromborough, Bebington, Wallasey, Birkenhead, West Kirby, Hoylake and Meols. All work happens in-situ — no need to move heavy furniture out.",
+    local:
+      "Wirral living rooms and conservatories take a beating — sand, salt and mud from Dee walks, kids and pets on the fabric, spills and body oils on the cushions. Our professional hot water extraction lifts all of that out at fibre level and finishes with a professional deodoriser. Every fabric is pre-tested and matched with a safe, NCCA-approved cleaning solution.",
+    neighbours: ["Ellesmere Port", "Chester", "Neston"],
+    landmarks: [
+      "Heswall",
+      "Bebington",
+      "Bromborough",
+      "Birkenhead",
+      "Wallasey",
+      "West Kirby",
+      "Hoylake",
+      "Oxton",
+    ],
+    faqs: [
+      {
+        q: "Do you clean sofas in Wirral holiday lets and Airbnbs?",
+        a: "Yes — holiday lets in West Kirby, Hoylake and Parkgate are a common booking. Fast turnaround, receipted invoice for bookkeeping, and available around changeover days.",
+      },
+      {
+        q: "Can you remove pet smells from a Wirral fabric sofa?",
+        a: "Yes. Our hot water extraction pulls dander, urine and body oils out of the fibres, and we finish with a professional-grade deodoriser rather than a spray-on masker. Safe for pets to use once dry.",
+      },
+      {
+        q: "How much does upholstery cleaning cost on the Wirral?",
+        a: "Two-seater from £45, three-seater from £65, corner suite from £95. We usually offer a discount if you combine sofa cleaning with a carpet or hard floor clean in the same visit.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Wirral | TWH — Heswall, Bebington, West Kirby",
+    metaDescription:
+      "Local sofa, upholstery, mattress and curtain cleaning across the Wirral — Heswall, Neston, Bebington, Bromborough, Birkenhead, West Kirby, Hoylake. NCCA-accredited, from £45. Call 0151 357 2295.",
+  },
+  {
+    slug: "neston",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Neston",
+    urlPath: "/sofa-cleaning-neston",
+    postcode: "CH64",
+    county: "Cheshire West",
+    travelMinutes: 10,
+    heroTitle: "Sofa & Upholstery Cleaning in",
+    heroTitleAccent: "Neston & Parkgate",
+    heroSubtitle:
+      "Local, family-run sofa, corner-suite and mattress cleaning in Neston, Parkgate, Little Neston, Willaston and Ness. Fabric and leather. NCCA-accredited, from £45.",
+    intro:
+      "TWH is a short drive from Neston and cleans sofas, corner suites, armchairs and mattresses across CH64 — Neston town centre, Parkgate, Little Neston, Willaston, Ness and Burton. Sofas are cleaned in-situ using professional hot water extraction, so there's no need to move anything out.",
+    local:
+      "Sofas in Neston homes — especially those close to the estuary — see a lot of dune sand, damp dog fur and salt spray. Our system lifts that out of the fabric properly rather than just skimming the surface, and every fabric is pre-tested and matched with a safe cleaning solution. NCCA-accredited technicians, eco-friendly products, safe for children and pets once dry.",
+    neighbours: ["Ellesmere Port", "Wirral", "Chester"],
+    landmarks: ["Parkgate", "Little Neston", "Willaston", "Ness", "Burton"],
+    faqs: [
+      {
+        q: "How much does sofa cleaning cost in Neston?",
+        a: "Two-seater from £45, three-seater from £65, corner suite from £95. Dining chairs from £8 each. Discounts if you book alongside a carpet clean.",
+      },
+      {
+        q: "Do you clean leather sofas in Parkgate and Neston?",
+        a: "Yes. Leather is cleaned and re-conditioned rather than saturated — safe for the finish and leaves the leather feeling soft again.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Neston & Parkgate | TWH — from £45",
+    metaDescription:
+      "Local sofa, corner-suite, armchair and mattress cleaning in Neston, Parkgate, Little Neston and Willaston (CH64). NCCA-accredited, from £45. Call 0151 357 2295.",
+  },
+  {
+    slug: "frodsham",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Frodsham",
+    urlPath: "/sofa-cleaning-frodsham",
+    postcode: "WA6",
+    county: "Cheshire West",
+    travelMinutes: 15,
+    heroTitle: "Sofa & Upholstery Cleaning in",
+    heroTitleAccent: "Frodsham",
+    heroSubtitle:
+      "Professional sofa, corner-suite, armchair and mattress cleaning in Frodsham — Kingsley, Norley, Manley and the surrounding villages. Fabric and leather. NCCA-accredited.",
+    intro:
+      "TWH cleans sofas, corner suites, armchairs, mattresses and curtains across Frodsham and the surrounding WA6 villages of Kingsley, Norley, Manley, Alvanley and Newton-by-Frodsham. Based just up the M56 in Ellesmere Port, we can usually offer same-week appointments.",
+    local:
+      "Frodsham homes range from big family suites in country cottages to modern fabric corner sofas in new-builds off Overton Road. Every fabric is pre-tested and matched with a safe cleaning solution before we start, and we use professional hot water extraction to lift stains, pet odours and everyday soiling out at fibre level. NCCA-accredited technicians, eco-friendly and safe for children and pets once dry.",
+    neighbours: ["Helsby", "Runcorn", "Chester"],
+    landmarks: [
+      "Frodsham Hill",
+      "Main Street",
+      "Kingsley",
+      "Norley",
+      "Manley",
+      "Alvanley",
+    ],
+    faqs: [
+      {
+        q: "Do you clean sofas in the villages around Frodsham?",
+        a: "Yes — Kingsley, Norley, Manley, Alvanley and Newton-by-Frodsham are all on our regular WA6 round. Country-lane mud and pet fur are exactly what our hot water extraction is for.",
+      },
+      {
+        q: "Can you clean a mattress after illness?",
+        a: "Yes. We deep-clean single, double, king and super-king mattresses with a sanitising treatment. Popular after norovirus, bed-wetting or long illness.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Frodsham | TWH — Kingsley, Norley, from £45",
+    metaDescription:
+      "Local sofa, corner-suite, armchair and mattress cleaning in Frodsham (WA6) and surrounding villages. NCCA-accredited, family-run, eco-friendly, from £45. Call 0151 357 2295.",
+  },
+  {
+    slug: "helsby",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Helsby",
+    urlPath: "/sofa-cleaning-helsby",
+    postcode: "WA6",
+    county: "Cheshire West",
+    travelMinutes: 12,
+    heroTitle: "Sofa & Upholstery Cleaning in",
+    heroTitleAccent: "Helsby",
+    heroSubtitle:
+      "Local sofa, corner-suite and mattress cleaning across Helsby, Elton and Hapsford — fabric and leather. NCCA-accredited, family-run, from £45.",
+    intro:
+      "TWH is a short hop up the A5117 from Helsby and cleans sofas, corner suites, armchairs, dining chairs, mattresses and curtains across Helsby, Elton, Hapsford and the surrounding villages. Big family homes on Robin Hood Lane, newer estates near the station, older cottages up on Helsby Hill — we cover them all.",
+    local:
+      "The biggest thing sofas get in a Helsby family home is invisible — body oils, pet dander and soap residue that build up in the fibres and dull the whole colour. Our professional hot water extraction pulls that lot out and restores the fabric, and every job is finished with a professional deodoriser. NCCA-accredited, eco-friendly, safe for children and pets once dry.",
+    neighbours: ["Frodsham", "Chester", "Ellesmere Port"],
+    landmarks: ["Helsby Hill", "Robin Hood Lane", "Elton", "Hapsford"],
+    faqs: [
+      {
+        q: "How much does a full sofa clean cost in Helsby?",
+        a: "Two-seater from £45, three-seater around £65, corner suite from £95, armchairs £25 and dining chairs from £8 each. Combine with a carpet clean and we'll usually offer a discount.",
+      },
+      {
+        q: "Do you clean sofas as well as carpets in the same visit?",
+        a: "Yes — most Helsby jobs are a combined carpet + sofa clean. It's more efficient for us (which means a discount for you) and everything's dry the same day.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Helsby | TWH — NCCA-Accredited, from £45",
+    metaDescription:
+      "Local sofa, corner-suite, armchair and mattress cleaning in Helsby, Elton and Hapsford (WA6). NCCA-accredited, family-run, eco-friendly, from £45. Call 0151 357 2295.",
+  },
+  {
+    slug: "runcorn",
+    serviceKey: "sofa",
+    serviceShort: "Sofa Cleaning",
+    name: "Runcorn",
+    urlPath: "/sofa-cleaning-runcorn",
+    postcode: "WA7",
+    county: "Halton",
+    travelMinutes: 20,
+    heroTitle: "Sofa & Upholstery Cleaning in",
+    heroTitleAccent: "Runcorn",
+    heroSubtitle:
+      "Professional sofa, corner-suite, armchair and mattress cleaning across Runcorn — Weston Point, Halton, Sandymoor, Preston Brook and the old town. Fabric and leather. NCCA-accredited.",
+    intro:
+      "TWH cleans sofas, corner suites, armchairs, mattresses and dining chairs across the WA7 area — the old town and Weston Point, Halton Village, Sandymoor, Preston Brook and Beechwood. Everything cleaned in-situ, no need to move furniture out.",
+    local:
+      "Runcorn family homes and new-build sofas in Sandymoor pick up everything — kids' juice spills, dog fur, cooking odours from open-plan kitchens. Our hot water extraction removes it at fibre level rather than just refreshing the surface, and every fabric is pre-tested before we start. NCCA-accredited technicians, eco-friendly products, safe for children and pets once dry.",
+    neighbours: ["Frodsham", "Helsby", "Chester"],
+    landmarks: [
+      "Halton Village",
+      "Weston Point",
+      "Sandymoor",
+      "Preston Brook",
+      "Beechwood",
+    ],
+    faqs: [
+      {
+        q: "Do you clean office and commercial sofas in Runcorn?",
+        a: "Yes. Reception sofas, meeting-room armchairs and communal seating across the Runcorn industrial estates. Out-of-hours cleaning is available.",
+      },
+      {
+        q: "How much does sofa cleaning cost in Runcorn?",
+        a: "Two-seater from £45, three-seater £65, corner suite from £95. Discounts if you combine with a carpet clean in the same visit. Call 0151 357 2295 for a firm quote.",
+      },
+    ],
+    metaTitle:
+      "Sofa & Upholstery Cleaning Runcorn | TWH — NCCA-Accredited, from £45",
+    metaDescription:
+      "Professional sofa, corner-suite, armchair and mattress cleaning in Runcorn (WA7). NCCA-accredited, family-run, eco-friendly, from £45. Call 0151 357 2295.",
+  },
+];
+
+export const locations: Location[] = [...carpetLocations, ...sofaLocations];
+
+export const getCarpetLocation = (slug: string) =>
+  carpetLocations.find((l) => l.slug === slug);
+
+export const getSofaLocation = (slug: string) =>
+  sofaLocations.find((l) => l.slug === slug);
+
+// Back-compat: default lookup falls back to the carpet page for a given slug.
 export const getLocation = (slug: string) =>
-  locations.find((l) => l.slug === slug);
+  carpetLocations.find((l) => l.slug === slug);

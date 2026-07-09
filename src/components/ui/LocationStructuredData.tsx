@@ -7,12 +7,20 @@ export default function LocationStructuredData({
 }) {
   const url = `https://twhcarpetcleaning.co.uk${location.urlPath}`;
 
+  const serviceType =
+    location.serviceKey === "sofa"
+      ? "Sofa, upholstery and mattress cleaning"
+      : "Carpet, upholstery and hard floor cleaning";
+  const priceFrom = location.serviceKey === "sofa" ? "45" : "69";
+  const priceUnit =
+    location.serviceKey === "sofa" ? "two-seater sofa" : "first room";
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${url}#service`,
-    name: `Carpet Cleaning in ${location.name}`,
-    serviceType: "Carpet, upholstery and hard floor cleaning",
+    name: `${location.serviceShort} in ${location.name}`,
+    serviceType,
     provider: {
       "@type": "LocalBusiness",
       "@id": "https://twhcarpetcleaning.co.uk/#business",
@@ -39,12 +47,12 @@ export default function LocationStructuredData({
     offers: {
       "@type": "Offer",
       priceCurrency: "GBP",
-      price: "69",
+      price: priceFrom,
       priceSpecification: {
         "@type": "UnitPriceSpecification",
-        price: "69",
+        price: priceFrom,
         priceCurrency: "GBP",
-        unitText: "first room",
+        unitText: priceUnit,
       },
       url,
     },
@@ -76,7 +84,7 @@ export default function LocationStructuredData({
       {
         "@type": "ListItem",
         position: 2,
-        name: `Carpet Cleaning ${location.name}`,
+        name: `${location.serviceShort} ${location.name}`,
         item: url,
       },
     ],

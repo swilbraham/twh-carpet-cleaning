@@ -4,10 +4,16 @@ import Link from "next/link";
 import { MapPin, CheckCircle, Clock, Shield, Sparkles } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import type { Location } from "@/lib/locations";
-import { locations } from "@/lib/locations";
+import { carpetLocations, sofaLocations } from "@/lib/locations";
 
 export default function LocationContent({ location }: { location: Location }) {
-  const others = locations.filter((l) => l.slug !== location.slug);
+  const sameService =
+    location.serviceKey === "sofa" ? sofaLocations : carpetLocations;
+  const others = sameService.filter((l) => l.slug !== location.slug);
+  const crossService =
+    location.serviceKey === "sofa"
+      ? carpetLocations.find((l) => l.slug === location.slug)
+      : sofaLocations.find((l) => l.slug === location.slug);
 
   return (
     <section className="py-20 md:py-28 bg-white">
@@ -26,7 +32,9 @@ export default function LocationContent({ location }: { location: Location }) {
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">
-                Carpet, Upholstery &amp; Hard Floor Cleaning in{" "}
+                {location.serviceKey === "sofa"
+                  ? "Sofa & Upholstery Cleaning in "
+                  : "Carpet, Upholstery & Hard Floor Cleaning in "}
                 <span className="text-brand-500">{location.name}</span>
               </h2>
 
@@ -58,8 +66,12 @@ export default function LocationContent({ location }: { location: Location }) {
                   },
                   {
                     icon: CheckCircle,
-                    title: "From £69",
-                    text: "£69 first room, £30 second, £20 per room after.",
+                    title:
+                      location.serviceKey === "sofa" ? "From £45" : "From £69",
+                    text:
+                      location.serviceKey === "sofa"
+                        ? "£45 two-seater, £65 three-seater, £95 corner suite."
+                        : "£69 first room, £30 second, £20 per room after.",
                   },
                 ].map((item) => (
                   <div
@@ -101,7 +113,7 @@ export default function LocationContent({ location }: { location: Location }) {
 
               {/* FAQs */}
               <h3 className="text-2xl font-extrabold text-gray-900 mb-6">
-                {location.name} Carpet Cleaning FAQs
+                {location.name} {location.serviceShort} FAQs
               </h3>
               <div className="space-y-4 mb-10">
                 {location.faqs.map((faq) => (
@@ -132,12 +144,31 @@ export default function LocationContent({ location }: { location: Location }) {
                         className="flex items-center gap-2 text-brand-700 hover:text-brand-900 hover:underline text-sm font-medium"
                       >
                         <MapPin className="w-4 h-4" />
-                        Carpet cleaning {l.name}
+                        {l.serviceShort} {l.name}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
+
+              {crossService && (
+                <div className="bg-accent-50 rounded-xl p-6 border border-accent-100">
+                  <h3 className="font-bold text-gray-900 mb-2">
+                    Also in {location.name}
+                  </h3>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Need the other service too? We usually offer a discount for
+                    combined bookings in the same visit.
+                  </p>
+                  <Link
+                    href={crossService.urlPath}
+                    className="inline-flex items-center gap-2 text-brand-700 hover:text-brand-900 hover:underline text-sm font-semibold"
+                  >
+                    <MapPin className="w-4 h-4" />
+                    {crossService.serviceShort} in {crossService.name}
+                  </Link>
+                </div>
+              )}
 
               <div className="bg-gray-900 rounded-xl p-6 text-white">
                 <h3 className="font-bold text-lg mb-2">
