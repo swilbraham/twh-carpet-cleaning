@@ -1,7 +1,15 @@
 import { MetadataRoute } from "next";
+import { locations } from "@/lib/locations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://twhcarpetcleaning.co.uk";
+
+  const locationRoutes: MetadataRoute.Sitemap = locations.map((l) => ({
+    url: `${baseUrl}${l.urlPath}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.85,
+  }));
 
   return [
     {
@@ -28,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    ...locationRoutes,
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),

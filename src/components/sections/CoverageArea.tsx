@@ -1,7 +1,9 @@
 "use client";
 
-import { MapPin, CheckCircle } from "lucide-react";
+import Link from "next/link";
+import { MapPin, CheckCircle, ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import { locations } from "@/lib/locations";
 
 const areas = [
   "Chester",
@@ -101,6 +103,44 @@ export default function CoverageArea() {
             </div>
           </AnimatedSection>
         </div>
+
+        {/* Location-specific pages */}
+        <AnimatedSection>
+          <div className="mt-16">
+            <h3 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">
+              Carpet Cleaning by Area
+            </h3>
+            <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+              We're your local, NCCA-accredited carpet cleaner in each of
+              these towns. Tap yours to see coverage, pricing and reviews from
+              your area.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {locations.map((l) => (
+                <Link
+                  key={l.slug}
+                  href={l.urlPath}
+                  className="group bg-gray-50 hover:bg-brand-50 rounded-xl p-5 border border-gray-100 hover:border-brand-200 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-brand-100 group-hover:bg-brand-200 rounded-lg flex items-center justify-center transition-colors">
+                      <MapPin className="w-5 h-5 text-brand-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-gray-900 leading-tight">
+                        Carpet Cleaning {l.name}
+                      </h4>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {l.postcode}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-brand-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </AnimatedSection>
 
         {/* SEO-rich service area descriptions */}
         <div className="mt-16 grid md:grid-cols-3 gap-6">
