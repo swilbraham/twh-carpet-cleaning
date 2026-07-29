@@ -20,9 +20,9 @@ export default function LandingFooter() {
               <Phone className="w-3.5 h-3.5" />
               0151 357 2295
             </a>
-            <a href="tel:07334231504" className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <a href="tel:07434231504" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Smartphone className="w-3.5 h-3.5" />
-              07334 231 504
+              07434 231 504
             </a>
             <a href="mailto:Twhcarpetcleaning@outlook.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail className="w-3.5 h-3.5" />

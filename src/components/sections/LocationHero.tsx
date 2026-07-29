@@ -88,11 +88,11 @@ export default function LocationHero({ location }: { location: Location }) {
             className="mb-8"
           >
             <a
-              href="tel:07334231504"
+              href="tel:07434231504"
               className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm"
             >
               <Phone className="w-4 h-4" />
-              Or call mobile: 07334 231 504
+              Or call mobile: 07434 231 504
             </a>
           </motion.div>
 

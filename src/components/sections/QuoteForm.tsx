@@ -126,7 +126,7 @@ export default function QuoteForm() {
               </a>
 
               <a
-                href="tel:07334231504"
+                href="tel:07434231504"
                 className="flex items-center gap-4 bg-white rounded-xl p-4 border border-gray-200 hover:border-brand-300 hover:shadow-md transition-all group"
               >
                 <div className="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center group-hover:bg-brand-200 transition-colors">
@@ -135,7 +135,7 @@ export default function QuoteForm() {
                 <div>
                   <p className="font-bold text-gray-900">Mobile</p>
                   <p className="text-brand-600 font-semibold text-lg">
-                    07334 231 504
+                    07434 231 504
                   </p>
                 </div>
               </a>

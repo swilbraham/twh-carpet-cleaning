@@ -115,11 +115,11 @@ export default function OfferPage() {
                   <span className="font-semibold text-sm">0151 357 2295</span>
                 </a>
                 <a
-                  href="tel:07334231504"
+                  href="tel:07434231504"
                   className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm"
                 >
                   <Phone className="w-4 h-4" />
-                  07334 231 504
+                  07434 231 504
                 </a>
               </div>
             </div>
@@ -230,11 +230,11 @@ export default function OfferPage() {
                     Call 0151 357 2295
                   </a>
                   <a
-                    href="tel:07334231504"
+                    href="tel:07434231504"
                     className="flex items-center justify-center gap-2 border border-white/30 text-white font-medium rounded-lg px-6 py-3 text-sm"
                   >
                     <Phone className="w-4 h-4" />
-                    Mobile: 07334 231 504
+                    Mobile: 07434 231 504
                   </a>
                 </div>
 

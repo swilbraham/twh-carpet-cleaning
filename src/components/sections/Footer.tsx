@@ -43,11 +43,11 @@ export default function Footer() {
                 0151 357 2295
               </a>
               <a
-                href="tel:07334231504"
+                href="tel:07434231504"
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
               >
                 <Smartphone className="w-4 h-4" />
-                07334 231 504
+                07434 231 504
               </a>
               <a
                 href="mailto:Twhcarpetcleaning@outlook.com"

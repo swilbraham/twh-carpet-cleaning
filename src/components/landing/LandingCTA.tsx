@@ -30,11 +30,11 @@ export default function LandingCTA() {
               Call 0151 357 2295
             </a>
             <a
-              href="tel:07334231504"
+              href="tel:07434231504"
               className="inline-flex items-center justify-center gap-2 border-2 border-brand-500 text-brand-500 font-bold rounded-lg px-8 py-4 text-lg hover:bg-brand-500 hover:text-white transition-all"
             >
               <Phone className="w-5 h-5" />
-              Mobile: 07334 231 504
+              Mobile: 07434 231 504
             </a>
             <a
               href="#top"

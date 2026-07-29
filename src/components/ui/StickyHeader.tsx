@@ -105,13 +105,13 @@ export default function StickyHeader() {
                   0151 357 2295
                 </a>
                 <a
-                  href="tel:07334231504"
+                  href="tel:07434231504"
                   className={`flex items-center gap-2 text-sm font-semibold py-2 ${
                     scrolled ? "text-brand-700" : "text-white"
                   }`}
                 >
                   <Phone className="w-4 h-4" />
-                  07334 231 504
+                  07434 231 504
                 </a>
               </div>
               <Button
