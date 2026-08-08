@@ -47,6 +47,7 @@ const CUSTOM_ARM = 10;
 /* ── Add-ons ────────────────────────────────────── */
 const SAME_DAY = 50;
 const SPOT_STAIN = 9.99;
+const PROTECTOR = 30;
 
 /* ── Availability days ──────────────────────────── */
 const allDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -65,6 +66,7 @@ export default function BookingCalculator() {
   const [customArms, setCustomArms] = useState(0);
   const [sameDay, setSameDay] = useState(false);
   const [spotStain, setSpotStain] = useState(false);
+  const [protectorCount, setProtectorCount] = useState(0);
   const [days, setDays] = useState<string[]>(weekdayDefaults);
   const [bankHoliday, setBankHoliday] = useState(false);
   const [petAccidents, setPetAccidents] = useState(false);
@@ -121,9 +123,20 @@ export default function BookingCalculator() {
     ? Math.max(0, MINIMUM_CHARGE - cleanSubtotal)
     : 0;
 
+  // Protector is priced per room/item, so cap it at what's been selected
+  const upholsteryItemCount = upholsteryOptions.reduce(
+    (sum, opt) => sum + (upholstery[opt.id] || 0),
+    0
+  );
+  const protectableItems =
+    roomCount + hallwayCount + upholsteryItemCount + (customTotal > 0 ? 1 : 0);
+  const protectorQty = Math.min(protectorCount, protectableItems);
+  const protectorTotal = hasSelection ? protectorQty * PROTECTOR : 0;
+
   const addOnsTotal =
     (hasSelection && sameDay ? SAME_DAY : 0) +
-    (hasSelection && spotStain ? SPOT_STAIN : 0);
+    (hasSelection && spotStain ? SPOT_STAIN : 0) +
+    protectorTotal;
 
   const preSurcharge = cleanSubtotal + minimumTopUp + addOnsTotal;
 
@@ -137,6 +150,11 @@ export default function BookingCalculator() {
       : 0;
 
   const total = Math.round((preSurcharge + surcharge) * 100) / 100;
+
+  /* Keep the protector count in step if rooms/items are removed */
+  useEffect(() => {
+    if (protectorCount > protectableItems) setProtectorCount(protectableItems);
+  }, [protectorCount, protectableItems]);
 
   /* ── Breakdown lines for the live panel ─────── */
   const breakdown: { label: string; amount: number }[] = [];
@@ -171,6 +189,12 @@ export default function BookingCalculator() {
     breakdown.push({
       label: `Minimum charge (£${MINIMUM_CHARGE})`,
       amount: minimumTopUp,
+    });
+  }
+  if (protectorTotal > 0) {
+    breakdown.push({
+      label: `Stain protector ×${protectorQty}`,
+      amount: protectorTotal,
     });
   }
   if (hasSelection && sameDay) {
@@ -241,6 +265,8 @@ export default function BookingCalculator() {
 
   const getAddOnsSummary = (): string => {
     const parts: string[] = [];
+    if (protectorTotal > 0)
+      parts.push(`Stain protector x${protectorQty} (+£${protectorTotal})`);
     if (hasSelection && sameDay) parts.push(`Same day call out (+£${SAME_DAY})`);
     if (hasSelection && spotStain)
       parts.push(`Spot & stain remover (+£${SPOT_STAIN})`);
@@ -544,6 +570,31 @@ export default function BookingCalculator() {
                       : "Available once you've added carpet or sofa cleaning above."}
                   </p>
                   <div className="space-y-3">
+                    {hasSelection ? (
+                      <CounterRow
+                        label="Stain Protector"
+                        sublabel={`£${PROTECTOR} per room or item — protects against future spills`}
+                        qty={protectorQty}
+                        onMinus={() =>
+                          setProtectorCount((q) => Math.max(0, q - 1))
+                        }
+                        onPlus={() =>
+                          setProtectorCount((q) =>
+                            Math.min(protectableItems, q + 1)
+                          )
+                        }
+                      />
+                    ) : (
+                      <div className="flex items-center gap-3 rounded-xl px-4 py-3 border bg-gray-100 border-gray-200 opacity-60">
+                        <Lock className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+                        <span className="font-medium text-sm text-gray-700">
+                          Stain Protector
+                        </span>
+                        <span className="text-sm text-gray-500">
+                          +&pound;{PROTECTOR} per room or item
+                        </span>
+                      </div>
+                    )}
                     <label
                       className={`flex items-center gap-3 rounded-xl px-4 py-3 border transition-colors ${
                         !hasSelection
