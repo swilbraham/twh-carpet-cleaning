@@ -6,7 +6,6 @@ import PainPoints from "@/components/sections/PainPoints";
 import ServiceShowcase from "@/components/sections/ServiceShowcase";
 import Benefits from "@/components/sections/Benefits";
 import Process from "@/components/sections/Process";
-import Pricing from "@/components/sections/Pricing";
 import BookingCalculator from "@/components/sections/BookingCalculator";
 import Testimonials from "@/components/sections/Testimonials";
 import ElfsightReviews from "@/components/ui/ElfsightReviews";
@@ -28,7 +27,6 @@ export default function TestHome() {
         <ServiceShowcase />
         <Benefits />
         <Process />
-        <Pricing />
         <BookingCalculator />
         <Testimonials />
         <ElfsightReviews />
