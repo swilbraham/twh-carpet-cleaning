@@ -8,9 +8,6 @@ import {
   Send,
   Loader2,
   CheckCircle,
-  Sparkles,
-  Star,
-  Crown,
   Lock,
   PawPrint,
   History,
@@ -21,63 +18,55 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 const WEB3FORMS_KEY = "e8b4dd99-992e-4928-8e30-99af9daf2b32";
 
-/* ── Room types ─────────────────────────────────── */
-const roomTypes = [
-  { id: "living", label: "Living Room" },
-  { id: "bedroom", label: "Bedroom" },
-  { id: "dining", label: "Dining Room" },
-  { id: "hallway", label: "Hallway" },
-  { id: "stairs", label: "Stairs & Landing" },
-  { id: "kitchen", label: "Kitchen" },
-  { id: "conservatory", label: "Conservatory" },
-  { id: "other", label: "Other" },
-];
+/* ── Carpet pricing ─────────────────────────────── */
+// First room £99, each additional £40. Hallways & landings £20 each.
+// Minimum charge £99 on any booking.
+const FIRST_ROOM = 99;
+const EXTRA_ROOM = 40;
+const HALLWAY = 20;
+const MINIMUM_CHARGE = 99;
+
+function getCarpetRoomsTotal(roomCount: number): number {
+  if (roomCount <= 0) return 0;
+  return FIRST_ROOM + (roomCount - 1) * EXTRA_ROOM;
+}
 
 /* ── Upholstery options ─────────────────────────── */
 const upholsteryOptions = [
-  { id: "2seat", label: "2 Seater", price: 80 },
-  { id: "3seat", label: "3 Seater", price: 120 },
-  { id: "4seat", label: "4 Seater", price: 160 },
-  { id: "5seat", label: "5 Seater", price: 200 },
+  { id: "pouffe", label: "Pouffe", price: 35 },
+  { id: "armchair", label: "Armchair", price: 55 },
+  { id: "loveseat", label: "Love / Cuddle Seat", price: 82.5 },
+  { id: "2seat", label: "2-Seater", price: 90 },
+  { id: "3seat", label: "3-Seater (or oversized 2-seater)", price: 125 },
+  { id: "4seat", label: "4-Seater / Corner", price: 160 },
 ];
 
-/* ── Package tiers ──────────────────────────────── */
-type PackageTier = "essential" | "signature" | "premium";
+const CUSTOM_SEAT = 35;
+const CUSTOM_ARM = 10;
 
-const packages: {
-  id: PackageTier;
-  label: string;
-  tagline: string;
-  icon: typeof Sparkles;
-}[] = [
-  { id: "essential", label: "Essential Clean", tagline: "Freshen & Reset", icon: Sparkles },
-  { id: "signature", label: "Signature Clean", tagline: "Deep Clean + Freshness Boost", icon: Star },
-  { id: "premium", label: "Premium Protection", tagline: "Full Restoration & Protect", icon: Crown },
-];
-
-/* ── Carpet pricing (Essential base) ────────────── */
-const carpetPrices = [0, 79, 99, 119, 139, 159, 179, 199];
-
-function getCarpetTotal(totalRooms: number): number {
-  if (totalRooms <= 0) return 0;
-  if (totalRooms < carpetPrices.length) return carpetPrices[totalRooms];
-  // Beyond 7 rooms: £199 + £20 per extra room
-  return 199 + (totalRooms - 7) * 20;
-}
+/* ── Add-ons ────────────────────────────────────── */
+const SAME_DAY = 50;
+const SPOT_STAIN = 9.99;
 
 /* ── Availability days ──────────────────────────── */
 const allDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const weekdayDefaults = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
+const fmt = (n: number): string =>
+  n % 1 === 0 ? `£${n}` : `£${n.toFixed(2)}`;
+
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 export default function BookingCalculator() {
-  const [tier, setTier] = useState<PackageTier>("essential");
-  const [rooms, setRooms] = useState<Record<string, number>>({});
+  const [roomCount, setRoomCount] = useState(0);
+  const [hallwayCount, setHallwayCount] = useState(0);
   const [upholstery, setUpholstery] = useState<Record<string, number>>({});
-  const [deodoriser, setDeodoriser] = useState(false);
-  const [stainGuard, setStainGuard] = useState(false);
+  const [customSeats, setCustomSeats] = useState(0);
+  const [customArms, setCustomArms] = useState(0);
+  const [sameDay, setSameDay] = useState(false);
+  const [spotStain, setSpotStain] = useState(false);
   const [days, setDays] = useState<string[]>(weekdayDefaults);
+  const [bankHoliday, setBankHoliday] = useState(false);
   const [petAccidents, setPetAccidents] = useState(false);
   const [previousAttempts, setPreviousAttempts] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
@@ -113,69 +102,89 @@ export default function BookingCalculator() {
   }, []);
 
   /* ── Calculations ──────────────────────────── */
-  const totalRooms = Object.values(rooms).reduce((s, q) => s + q, 0);
-  const carpetBase = getCarpetTotal(totalRooms);
+  const carpetTotal =
+    getCarpetRoomsTotal(roomCount) + hallwayCount * HALLWAY;
 
-  const upholsteryTotal = upholsteryOptions.reduce((sum, opt) => {
+  const upholsteryItemsTotal = upholsteryOptions.reduce((sum, opt) => {
     const qty = upholstery[opt.id] || 0;
     return sum + opt.price * qty;
   }, 0);
 
-  const cleanSubtotal = carpetBase + upholsteryTotal;
+  const customTotal = customSeats * CUSTOM_SEAT + customArms * CUSTOM_ARM;
+  const upholsteryTotal = upholsteryItemsTotal + customTotal;
+
+  const cleanSubtotal = carpetTotal + upholsteryTotal;
   const hasSelection = cleanSubtotal > 0;
 
-  // Signature = Essential + £30 deodoriser included
-  // Premium  = Signature + stain guard (half clean price) included
-  let packageExtra = 0;
-  if (tier === "signature") packageExtra = 30;
-  if (tier === "premium") packageExtra = 30 + Math.round(cleanSubtotal / 2);
+  // Minimum charge £99 applies to any booking
+  const minimumTopUp = hasSelection
+    ? Math.max(0, MINIMUM_CHARGE - cleanSubtotal)
+    : 0;
 
-  const addOnDeodoriser = tier === "essential" && deodoriser ? 30 : 0;
-  const addOnStainGuard =
-    (tier === "essential" || tier === "signature") && stainGuard
-      ? Math.round(cleanSubtotal / 2)
+  const addOnsTotal =
+    (hasSelection && sameDay ? SAME_DAY : 0) +
+    (hasSelection && spotStain ? SPOT_STAIN : 0);
+
+  const preSurcharge = cleanSubtotal + minimumTopUp + addOnsTotal;
+
+  // Weekend-only availability (Sat/Sun only) +25%; bank holiday +50%
+  const weekendOnly =
+    days.length > 0 && days.every((d) => d === "Sat" || d === "Sun");
+  const surchargeRate = bankHoliday ? 0.5 : weekendOnly ? 0.25 : 0;
+  const surcharge =
+    hasSelection && surchargeRate > 0
+      ? Math.round(preSurcharge * surchargeRate * 100) / 100
       : 0;
 
-  const total = cleanSubtotal + packageExtra + addOnDeodoriser + addOnStainGuard;
+  const total = Math.round((preSurcharge + surcharge) * 100) / 100;
 
   /* ── Breakdown lines for the live panel ─────── */
   const breakdown: { label: string; amount: number }[] = [];
-  if (totalRooms > 0) {
+  if (roomCount > 0) {
     breakdown.push({
-      label: `Carpet cleaning — ${totalRooms} room${totalRooms > 1 ? "s" : ""}`,
-      amount: carpetBase,
+      label: `Rooms & stairs ×${roomCount}`,
+      amount: getCarpetRoomsTotal(roomCount),
+    });
+  }
+  if (hallwayCount > 0) {
+    breakdown.push({
+      label: `Hallways & landings ×${hallwayCount}`,
+      amount: hallwayCount * HALLWAY,
     });
   }
   upholsteryOptions.forEach((opt) => {
     const qty = upholstery[opt.id] || 0;
     if (qty > 0) {
       breakdown.push({
-        label: qty > 1 ? `${opt.label} sofa ×${qty}` : `${opt.label} sofa`,
+        label: qty > 1 ? `${opt.label} ×${qty}` : opt.label,
         amount: opt.price * qty,
       });
     }
   });
-  if (tier === "signature" && hasSelection) {
-    breakdown.push({ label: "Signature — odour treatment", amount: 30 });
-  }
-  if (tier === "premium" && hasSelection) {
-    breakdown.push({ label: "Premium — odour treatment", amount: 30 });
+  if (customTotal > 0) {
     breakdown.push({
-      label: "Premium — stain protection",
-      amount: Math.round(cleanSubtotal / 2),
+      label: `Custom sofa (${customSeats} seat${customSeats !== 1 ? "s" : ""}, ${customArms} arm${customArms !== 1 ? "s" : ""})`,
+      amount: customTotal,
     });
   }
-  if (addOnDeodoriser > 0) {
-    breakdown.push({ label: "Specialist deodoriser", amount: addOnDeodoriser });
+  if (minimumTopUp > 0) {
+    breakdown.push({
+      label: `Minimum charge (£${MINIMUM_CHARGE})`,
+      amount: minimumTopUp,
+    });
   }
-  if (addOnStainGuard > 0) {
-    breakdown.push({ label: "Stain guard protection", amount: addOnStainGuard });
+  if (hasSelection && sameDay) {
+    breakdown.push({ label: "Same day call out", amount: SAME_DAY });
   }
-
-  const selectedRoomsText = roomTypes
-    .filter((r) => (rooms[r.id] || 0) > 0)
-    .map((r) => ((rooms[r.id] || 0) > 1 ? `${r.label} ×${rooms[r.id]}` : r.label))
-    .join(", ");
+  if (hasSelection && spotStain) {
+    breakdown.push({ label: "Spot & stain remover", amount: SPOT_STAIN });
+  }
+  if (surcharge > 0) {
+    breakdown.push({
+      label: bankHoliday ? "Bank holiday rate +50%" : "Weekend rate +25%",
+      amount: surcharge,
+    });
+  }
 
   /* ── Helpers ───────────────────────────────── */
   const updateCount = (
@@ -216,7 +225,8 @@ export default function BookingCalculator() {
 
   const getSummary = (): string => {
     const parts: string[] = [];
-    if (selectedRoomsText) parts.push(`Rooms: ${selectedRoomsText}`);
+    if (roomCount > 0) parts.push(`Rooms & stairs x${roomCount}`);
+    if (hallwayCount > 0) parts.push(`Hallways & landings x${hallwayCount}`);
     const uphSummary = upholsteryOptions
       .filter((o) => (upholstery[o.id] || 0) > 0)
       .map((o) => {
@@ -224,13 +234,22 @@ export default function BookingCalculator() {
         return qty > 1 ? `${o.label} x${qty}` : o.label;
       });
     if (uphSummary.length) parts.push(`Upholstery: ${uphSummary.join(", ")}`);
+    if (customTotal > 0)
+      parts.push(`Custom sofa: ${customSeats} seats, ${customArms} arms`);
     return parts.join(" | ");
   };
 
   const getAddOnsSummary = (): string => {
     const parts: string[] = [];
-    if (addOnDeodoriser > 0) parts.push("Deodoriser (+£30)");
-    if (addOnStainGuard > 0) parts.push(`Stain Guard (+£${addOnStainGuard})`);
+    if (hasSelection && sameDay) parts.push(`Same day call out (+£${SAME_DAY})`);
+    if (hasSelection && spotStain)
+      parts.push(`Spot & stain remover (+£${SPOT_STAIN})`);
+    if (surcharge > 0)
+      parts.push(
+        bankHoliday
+          ? `Bank holiday rate +50% (+${fmt(surcharge)})`
+          : `Weekend rate +25% (+${fmt(surcharge)})`
+      );
     return parts.join(", ");
   };
 
@@ -250,7 +269,6 @@ export default function BookingCalculator() {
 
     setFormStatus("submitting");
     try {
-      const tierLabel = packages.find((p) => p.id === tier)?.label || tier;
       const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
         headers: {
@@ -259,14 +277,14 @@ export default function BookingCalculator() {
         },
         body: JSON.stringify({
           ...formData,
-          package: tierLabel,
           selections: getSummary(),
           add_ons: getAddOnsSummary() || "None",
           available_days: days.length ? days.join(", ") : "Not specified",
+          bank_holiday_requested: bankHoliday ? "Yes" : "No",
           about_the_job: getJobNotes() || "None",
-          estimated_price: `£${total}`,
+          estimated_price: fmt(total),
           access_key: WEB3FORMS_KEY,
-          subject: `${tierLabel} Booking — ${formData.name} — £${total}`,
+          subject: `Booking — ${formData.name} — ${fmt(total)}`,
           from_name: "TWH Carpet Cleaning Website",
         }),
       });
@@ -301,7 +319,7 @@ export default function BookingCalculator() {
     onPlus: () => void;
   }) => (
     <div
-      className={`flex items-center justify-between rounded-xl px-4 py-3 border transition-colors ${
+      className={`flex items-center justify-between gap-3 rounded-xl px-4 py-3 border transition-colors ${
         qty > 0 ? "bg-brand-50 border-brand-200" : "bg-white border-gray-200"
       }`}
     >
@@ -355,11 +373,10 @@ export default function BookingCalculator() {
           Estimated Price
         </p>
         <p className="text-white text-4xl font-extrabold mt-1 tabular-nums">
-          &pound;{total}
+          {fmt(total)}
         </p>
         <p className="text-white/60 text-xs mt-1">
-          {packages.find((p) => p.id === tier)?.label} &bull; updates live as
-          you choose
+          Updates live as you choose
         </p>
       </div>
       <div className="p-5">
@@ -373,20 +390,17 @@ export default function BookingCalculator() {
                 >
                   <span className="text-gray-600">{line.label}</span>
                   <span className="font-semibold text-gray-900 tabular-nums whitespace-nowrap">
-                    &pound;{line.amount}
+                    {fmt(line.amount)}
                   </span>
                 </li>
               ))}
               <li className="flex items-baseline justify-between gap-3 text-sm pt-2 border-t border-gray-200">
                 <span className="font-bold text-gray-900">Total estimate</span>
                 <span className="font-extrabold text-brand-600 tabular-nums">
-                  &pound;{total}
+                  {fmt(total)}
                 </span>
               </li>
             </ul>
-            {selectedRoomsText && (
-              <p className="text-xs text-gray-400 mb-4">{selectedRoomsText}</p>
-            )}
             <button
               type="button"
               onClick={scrollToDetails}
@@ -436,88 +450,41 @@ export default function BookingCalculator() {
             {/* ══ LEFT — selections ══ */}
             <div className="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
               <div className="p-6 md:p-8 space-y-10">
-                {/* 1. Package */}
+                {/* 1. Carpet */}
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    1. Choose Your Package
+                    1. Carpet Cleaning
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
-                    Every clean is fully insured and NCCA certified.
+                    First room &pound;{FIRST_ROOM}, each additional &pound;
+                    {EXTRA_ROOM}. A single set of stairs counts as one room.
                   </p>
-                  <div className="grid sm:grid-cols-3 gap-3">
-                    {packages.map((pkg) => {
-                      const active = tier === pkg.id;
-                      return (
-                        <button
-                          key={pkg.id}
-                          type="button"
-                          onClick={() => {
-                            setTier(pkg.id);
-                            if (pkg.id === "signature") setDeodoriser(false);
-                            if (pkg.id === "premium") {
-                              setDeodoriser(false);
-                              setStainGuard(false);
-                            }
-                          }}
-                          className={`rounded-xl p-4 border-2 text-left transition-all cursor-pointer ${
-                            active
-                              ? "border-brand-500 bg-brand-50"
-                              : "border-gray-200 bg-white hover:border-gray-300"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 mb-1">
-                            <pkg.icon
-                              className={`w-4 h-4 ${
-                                active ? "text-brand-500" : "text-gray-400"
-                              }`}
-                            />
-                            <span
-                              className={`font-bold text-sm ${
-                                active ? "text-brand-700" : "text-gray-900"
-                              }`}
-                            >
-                              {pkg.label}
-                            </span>
-                          </div>
-                          <span
-                            className={`text-xs ${
-                              active ? "text-brand-500" : "text-gray-500"
-                            }`}
-                          >
-                            {pkg.tagline}
-                          </span>
-                        </button>
-                      );
-                    })}
+                  <div className="space-y-3">
+                    <CounterRow
+                      label="Standard Rooms & Stairs"
+                      sublabel={`First room £${FIRST_ROOM}, each additional £${EXTRA_ROOM}`}
+                      qty={roomCount}
+                      onMinus={() => setRoomCount((q) => Math.max(0, q - 1))}
+                      onPlus={() => setRoomCount((q) => q + 1)}
+                    />
+                    <CounterRow
+                      label="Hallways & Landings"
+                      sublabel={`£${HALLWAY} per hallway`}
+                      qty={hallwayCount}
+                      onMinus={() => setHallwayCount((q) => Math.max(0, q - 1))}
+                      onPlus={() => setHallwayCount((q) => q + 1)}
+                    />
                   </div>
+                  <p className="text-xs text-gray-400 mt-3">
+                    Minimum charge &pound;{MINIMUM_CHARGE} — applies to any
+                    booking.
+                  </p>
                 </div>
 
-                {/* 2. Carpet rooms */}
+                {/* 2. Upholstery */}
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    2. Carpet Cleaning
-                  </h3>
-                  <p className="text-sm text-gray-500 mb-4">
-                    First room &pound;79, and each extra room costs less. A
-                    single set of stairs counts as one room.
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {roomTypes.map((room) => (
-                      <CounterRow
-                        key={room.id}
-                        label={room.label}
-                        qty={rooms[room.id] || 0}
-                        onMinus={() => updateCount(setRooms, room.id, -1)}
-                        onPlus={() => updateCount(setRooms, room.id, 1)}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* 3. Upholstery */}
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    3. Upholstery Cleaning
+                    2. Upholstery Cleaning
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
                     Pick the items that match your sofas and chairs.
@@ -527,19 +494,49 @@ export default function BookingCalculator() {
                       <CounterRow
                         key={opt.id}
                         label={opt.label}
-                        sublabel={`£${opt.price} each`}
+                        sublabel={`${fmt(opt.price)} each`}
                         qty={upholstery[opt.id] || 0}
                         onMinus={() => updateCount(setUpholstery, opt.id, -1)}
                         onPlus={() => updateCount(setUpholstery, opt.id, 1)}
                       />
                     ))}
                   </div>
+
+                  {/* Custom configuration */}
+                  <div className="mt-4 rounded-xl border border-gray-200 bg-white p-4">
+                    <p className="font-medium text-sm text-gray-700 mb-1">
+                      Custom Configuration
+                    </p>
+                    <p className="text-xs text-gray-400 mb-3">
+                      &pound;{CUSTOM_SEAT} per seat, &pound;{CUSTOM_ARM} per
+                      arm — for unusual layouts.
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      <CounterRow
+                        label="Seats"
+                        qty={customSeats}
+                        onMinus={() => setCustomSeats((q) => Math.max(0, q - 1))}
+                        onPlus={() => setCustomSeats((q) => q + 1)}
+                      />
+                      <CounterRow
+                        label="Arms"
+                        qty={customArms}
+                        onMinus={() => setCustomArms((q) => Math.max(0, q - 1))}
+                        onPlus={() => setCustomArms((q) => q + 1)}
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 mt-3 tabular-nums">
+                      ({customSeats} seats &times; &pound;{CUSTOM_SEAT}) + (
+                      {customArms} arms &times; &pound;{CUSTOM_ARM}) ={" "}
+                      {fmt(customTotal)}
+                    </p>
+                  </div>
                 </div>
 
-                {/* 4. Add-ons */}
+                {/* 3. Add-ons */}
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    4. Add-Ons &amp; Treatments
+                    3. Add-Ons &amp; Specialist Treatments
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
                     {hasSelection
@@ -547,91 +544,81 @@ export default function BookingCalculator() {
                       : "Available once you've added carpet or sofa cleaning above."}
                   </p>
                   <div className="space-y-3">
-                    {tier === "essential" && (
-                      <label
-                        className={`flex items-center gap-3 rounded-xl px-4 py-3 border transition-colors ${
-                          !hasSelection
-                            ? "bg-gray-100 border-gray-200 cursor-not-allowed opacity-60"
-                            : deodoriser
-                              ? "bg-brand-50 border-brand-200 cursor-pointer"
-                              : "bg-white border-gray-200 cursor-pointer"
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={deodoriser}
-                          disabled={!hasSelection}
-                          onChange={(e) => setDeodoriser(e.target.checked)}
-                          className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500 cursor-pointer disabled:cursor-not-allowed"
-                        />
-                        <div className="flex items-center gap-2 flex-wrap">
-                          {!hasSelection && (
-                            <Lock className="w-3.5 h-3.5 text-gray-400" />
-                          )}
-                          <span className="font-medium text-sm text-gray-700">
-                            Specialist Deodoriser
-                          </span>
-                          <span className="text-sm text-gray-500">
-                            +&pound;30
-                          </span>
-                        </div>
-                      </label>
-                    )}
-                    {(tier === "essential" || tier === "signature") && (
-                      <label
-                        className={`flex items-center gap-3 rounded-xl px-4 py-3 border transition-colors ${
-                          !hasSelection
-                            ? "bg-gray-100 border-gray-200 cursor-not-allowed opacity-60"
-                            : stainGuard
-                              ? "bg-brand-50 border-brand-200 cursor-pointer"
-                              : "bg-white border-gray-200 cursor-pointer"
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={stainGuard}
-                          disabled={!hasSelection}
-                          onChange={(e) => setStainGuard(e.target.checked)}
-                          className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500 cursor-pointer disabled:cursor-not-allowed"
-                        />
-                        <div className="flex items-center gap-2 flex-wrap">
-                          {!hasSelection && (
-                            <Lock className="w-3.5 h-3.5 text-gray-400" />
-                          )}
-                          <span className="font-medium text-sm text-gray-700">
-                            Stain Guard Protection
-                          </span>
-                          <span className="text-sm text-gray-500">
-                            +half the clean price
-                            {cleanSubtotal > 0 && (
-                              <> (&pound;{Math.round(cleanSubtotal / 2)})</>
-                            )}
-                          </span>
-                        </div>
-                      </label>
-                    )}
-                    {tier === "signature" && (
-                      <p className="text-xs text-gray-400 italic">
-                        Deodoriser is already included in the Signature Clean.
-                      </p>
-                    )}
-                    {tier === "premium" && (
-                      <p className="text-sm text-gray-500 italic">
-                        Deodoriser and Stain Guard are both included in the
-                        Premium Protection package.
-                      </p>
-                    )}
+                    <label
+                      className={`flex items-center gap-3 rounded-xl px-4 py-3 border transition-colors ${
+                        !hasSelection
+                          ? "bg-gray-100 border-gray-200 cursor-not-allowed opacity-60"
+                          : sameDay
+                            ? "bg-brand-50 border-brand-200 cursor-pointer"
+                            : "bg-white border-gray-200 cursor-pointer"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={sameDay}
+                        disabled={!hasSelection}
+                        onChange={(e) => setSameDay(e.target.checked)}
+                        className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500 cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {!hasSelection && (
+                          <Lock className="w-3.5 h-3.5 text-gray-400" />
+                        )}
+                        <span className="font-medium text-sm text-gray-700">
+                          Same Day Call Out
+                        </span>
+                        <span className="text-sm text-gray-500">
+                          +&pound;{SAME_DAY}
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      className={`flex items-center gap-3 rounded-xl px-4 py-3 border transition-colors ${
+                        !hasSelection
+                          ? "bg-gray-100 border-gray-200 cursor-not-allowed opacity-60"
+                          : spotStain
+                            ? "bg-brand-50 border-brand-200 cursor-pointer"
+                            : "bg-white border-gray-200 cursor-pointer"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={spotStain}
+                        disabled={!hasSelection}
+                        onChange={(e) => setSpotStain(e.target.checked)}
+                        className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500 cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {!hasSelection && (
+                          <Lock className="w-3.5 h-3.5 text-gray-400" />
+                        )}
+                        <span className="font-medium text-sm text-gray-700">
+                          Spot &amp; Stain Remover
+                        </span>
+                        <span className="text-sm text-gray-500">
+                          +&pound;{SPOT_STAIN}
+                        </span>
+                      </div>
+                    </label>
+                    <div className="flex items-center gap-3 rounded-xl px-4 py-3 border bg-white border-gray-200">
+                      <span className="font-medium text-sm text-gray-700">
+                        Rug Cleaning
+                      </span>
+                      <span className="text-sm text-gray-500">
+                        Specialist rugs are priced individually — POA
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* 5. Availability */}
+                {/* 4. Availability */}
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    5. When Works For You?
+                    4. When Works For You?
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
                     Tick the days you&apos;re available — we&apos;ll work
-                    around your schedule.
+                    around your schedule. Mon&ndash;Fri is selected by default.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {allDays.map((day) => {
@@ -652,12 +639,39 @@ export default function BookingCalculator() {
                       );
                     })}
                   </div>
+                  <p className="text-xs text-gray-400 mt-3">
+                    {weekendOnly
+                      ? "Weekend-only bookings (Sat/Sun) carry a +25% rate."
+                      : "Weekday rate — standard pricing. Weekend-only bookings (Sat/Sun) carry a +25% rate."}
+                  </p>
+                  <label
+                    className={`mt-3 flex items-center gap-3 rounded-xl px-4 py-3 border cursor-pointer transition-colors ${
+                      bankHoliday
+                        ? "bg-brand-50 border-brand-200"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={bankHoliday}
+                      onChange={(e) => setBankHoliday(e.target.checked)}
+                      className="w-4 h-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500 cursor-pointer"
+                    />
+                    <div>
+                      <span className="font-medium text-sm text-gray-700 block">
+                        Specifically need a Bank Holiday slot?
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        Bank holiday bookings are charged at +50%.
+                      </span>
+                    </div>
+                  </label>
                 </div>
 
-                {/* 6. About the job */}
+                {/* 5. About the job */}
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    6. About The Job{" "}
+                    5. About The Job{" "}
                     <span className="text-gray-400 font-normal normal-case">
                       (optional)
                     </span>
@@ -716,10 +730,10 @@ export default function BookingCalculator() {
                   </div>
                 </div>
 
-                {/* 7. Details + submit */}
+                {/* 6. Details + submit */}
                 <div id="booking-details" className="scroll-mt-28">
                   <h3 className="font-bold text-gray-900 mb-1 text-sm uppercase tracking-wider">
-                    7. Your Details
+                    6. Your Details
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
                     Where to send the quote and how to reach you.
@@ -838,7 +852,7 @@ export default function BookingCalculator() {
                           <>
                             <Send className="w-5 h-5" />
                             {hasSelection
-                              ? `Book Now — £${total}`
+                              ? `Book Now — ${fmt(total)}`
                               : "Make a selection above to book"}
                           </>
                         )}
@@ -881,7 +895,7 @@ export default function BookingCalculator() {
                 Estimated price
               </p>
               <p className="text-2xl font-extrabold text-brand-600 tabular-nums leading-none">
-                &pound;{total}
+                {fmt(total)}
               </p>
             </div>
             <button
