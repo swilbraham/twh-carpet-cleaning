@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Booking Calculator Test | TWH Carpet Cleaning",
+  title: "Homepage Backup | TWH Carpet Cleaning",
   robots: { index: false, follow: false },
 };
 
-export default function TestLayout({
+export default function BackupLayout({
   children,
 }: {
   children: React.ReactNode;

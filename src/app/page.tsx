@@ -6,8 +6,7 @@ import PainPoints from "@/components/sections/PainPoints";
 import ServiceShowcase from "@/components/sections/ServiceShowcase";
 import Benefits from "@/components/sections/Benefits";
 import Process from "@/components/sections/Process";
-import Pricing from "@/components/sections/Pricing";
-import CostCalculator from "@/components/sections/CostCalculator";
+import BookingCalculator from "@/components/sections/BookingCalculator";
 import Testimonials from "@/components/sections/Testimonials";
 import ElfsightReviews from "@/components/ui/ElfsightReviews";
 import About from "@/components/sections/About";
@@ -28,8 +27,7 @@ export default function Home() {
         <ServiceShowcase />
         <Benefits />
         <Process />
-        <Pricing />
-        <CostCalculator />
+        <BookingCalculator />
         <Testimonials />
         <ElfsightReviews />
         <About />

@@ -6,7 +6,8 @@ import PainPoints from "@/components/sections/PainPoints";
 import ServiceShowcase from "@/components/sections/ServiceShowcase";
 import Benefits from "@/components/sections/Benefits";
 import Process from "@/components/sections/Process";
-import BookingCalculator from "@/components/sections/BookingCalculator";
+import Pricing from "@/components/sections/Pricing";
+import CostCalculator from "@/components/sections/CostCalculator";
 import Testimonials from "@/components/sections/Testimonials";
 import ElfsightReviews from "@/components/ui/ElfsightReviews";
 import About from "@/components/sections/About";
@@ -17,7 +18,7 @@ import NCCABadge from "@/components/ui/NCCABadge";
 import Footer from "@/components/sections/Footer";
 import StickyCTA from "@/components/sections/StickyCTA";
 
-export default function TestHome() {
+export default function BackupHome() {
   return (
     <>
       <StickyHeader />
@@ -27,7 +28,8 @@ export default function TestHome() {
         <ServiceShowcase />
         <Benefits />
         <Process />
-        <BookingCalculator />
+        <Pricing />
+        <CostCalculator />
         <Testimonials />
         <ElfsightReviews />
         <About />
